@@ -1,0 +1,197 @@
+/* body */
+
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+[v-cloak]
+{  
+display: none; 
+}
+html {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+}
+
+p {
+  text-indent: 2em;
+  padding: 2px 10px;
+  font-size: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+  color: #1abc9c;
+}
+
+h1 {
+  font-size: 2.3rem;
+}
+h2 {
+  font-size: 2.1rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+h4 {
+  font-size: 1.25rem;
+}
+h5 {
+  font-size: 1rem;
+}
+a {
+  color: #34495e;
+}
+
+a:hover {
+  text-decoration: none;
+  font-weight: 500;
+  background-color: #34495e;
+  color: white;
+}
+
+a:focus {
+  text-decoration: none;
+}
+
+/* articleList  */
+
+.articleList {
+  box-shadow: 2px 2px 10px gray;
+  border-top: 1px solid rgb(168, 164, 164);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.articleList > .article {
+  margin: 10px;
+  background-color: whitesmoke;
+  border-radius: 8px;
+  flex: 30%;
+}
+/* leftNav */
+.leftNav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(56, 68, 82, 0.9);
+  height: 100%;
+  z-index: 100;
+  padding: 0;
+  width: 8.33333333%;
+}
+.leftNav h2 {
+  color: whitesmoke;
+  line-height: 50px;
+  font-size: 1.25rem;
+}
+.leftNav > .linkList {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.leftNav > .linkList {
+  flex: 100%;
+}
+.leftNav > .linkList > a {
+  text-decoration: none;
+  margin: 10px 0;
+}
+.leftNav > .linkList > a:hover {
+  box-shadow: 1px 1px 1px whitesmoke;
+  background-color: #fff;
+}
+
+.leftNav > .linkList > a > h3 {
+  padding-bottom: 8px;
+  margin: 15px 0 0 0;
+  text-align: left;
+  line-height: 35px;
+  color: whitesmoke;
+}
+
+.leftNav > .linkList > a:hover > h3,
+.leftNav > .linkList > a:hover > div {
+  color: black;
+}
+
+.leftNav > .linkList > a > h3::before {
+  content: "";
+  width: 25px;
+  height: 25px;
+  background-image: url(https://limengtupian.oss-cn-beijing.aliyuncs.com/%E9%A6%96%E9%A1%B5%E7%B2%BE%E7%81%B5%E5%9B%BE/toolsImg.png);
+  background-size: 25px auto;
+  float: left;
+  margin: 6px 0 0 5px;
+}
+
+.leftNav > .linkList > a:hover > h3::before {
+  content: "";
+  width: 25px;
+  height: 25px;
+  background-image: url(https://limengtupian.oss-cn-beijing.aliyuncs.com/%E9%A6%96%E9%A1%B5%E7%B2%BE%E7%81%B5%E5%9B%BE/toolsImg-origin.png);
+  background-size: 25px auto;
+  float: left;
+  margin: 6px 0 0 5px;
+}
+
+.leftNav > .linkList > a:nth-child(1) > h3::before {
+  background-position: 0 0;
+}
+.leftNav > .linkList > a:nth-child(2) > h3::before {
+  background-position: 0 -25px;
+}
+.leftNav > .linkList > a:nth-child(3) > h3::before {
+  background-position: 0 -50px;
+}
+.leftNav > .linkList > a:nth-child(4) > h3::before {
+  background-position: 0 -75px;
+}
+.leftNav > .linkList > a:nth-child(5) > h3::before {
+  background-position: 0 -100px;
+}
+.leftNav > .linkList > a:nth-child(6) > h3::before {
+  background-position: 0 -125px;
+}
+.leftNav > .linkList > a:nth-child(7) > h3::before {
+  background-position: 0 -150px;
+}
+
+.leftNav > .linkList > a > div {
+  text-align: center;
+  margin: 0;
+  padding: 5px 0;
+  font-size: 1.05rem;
+  color: whitesmoke;
+}
+
+@media (min-width: 1700px) {
+  .container {
+    width: 100%;
+  }
+}

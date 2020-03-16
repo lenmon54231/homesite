@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="referrer" content="never">
+  <link rel="icon" href="<%= BASE_URL %>dog.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<%= BASE_URL %>css/comnon.css">
+  <title>导航站</title>
+  <style media="screen" type="text/css">
+    #app {
+      width: 100%;
+      height: 100%;
+    }
+
+    #appLoading {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    #appLoading .loadingText {
+      position: absolute;
+      display: block;
+      font-size: 30px;
+      line-height: 30px;
+      top: 50%;
+      left: 50%;
+      text-align: center;
+      font-weight: 700;
+      -webkit-transform: translateY(-50%) translateX(-50%);
+      transform: translateY(-50%) translateX(-50%);
+    }
+
+    .spinner {
+      margin: 20px auto;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spinner>div {
+      flex: 0 0 auto;
+      background-color: #34495e;
+      width: 6px;
+      height: 80px;
+      margin: 0 5px;
+      -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+      animation: stretchdelay 1.2s infinite ease-in-out;
+    }
+
+    .spinner .rect2 {
+      -webkit-animation-delay: -1.1s;
+      animation-delay: -1.1s;
+    }
+
+    .spinner .rect3 {
+      -webkit-animation-delay: -1.0s;
+      animation-delay: -1.0s;
+    }
+
+    .spinner .rect4 {
+      -webkit-animation-delay: -0.9s;
+      animation-delay: -0.9s;
+    }
+
+    .spinner .rect5 {
+      -webkit-animation-delay: -0.8s;
+      animation-delay: -0.8s;
+    }
+
+    @-webkit-keyframes stretchdelay {
+
+      0%,
+      40%,
+      100% {
+        -webkit-transform: scaleY(0.4)
+      }
+
+      20% {
+        -webkit-transform: scaleY(1.0)
+      }
+    }
+
+    @keyframes stretchdelay {
+
+      0%,
+      40%,
+      100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+      }
+
+      20% {
+        transform: scaleY(1.0);
+        -webkit-transform: scaleY(1.0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div id="appLoading">
+      <div class="loadingText">
+        <div class="spinner">
+          <div class="rect1"></div>
+          <div class="rect2"></div>
+          <div class="rect3"></div>
+          <div class="rect4"></div>
+          <div class="rect5"></div>
+        </div>
+        <span>部署于新加坡轻量应用服务器，水管较小，加载速度较慢，请稍后......</span>
+      </div>
+    </div>
+    <div id="app"></div>
+  </div>
+
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
