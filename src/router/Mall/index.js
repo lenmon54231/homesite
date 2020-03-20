@@ -2,7 +2,6 @@ export default {
     path: '/mall',
     name:'mall',
     component:resolve => require.ensure([], () => resolve(require('@/views/Mall.vue')), 'mall'),
-    // component: () => import('@/views/Mall.vue'),
     children: [
         {
             path: 'detail/:movieId',
@@ -20,6 +19,9 @@ export default {
         },
         {
             path: 'pay',
+            meta:{
+                needLogin: true
+            },
             component: () => import('@/components/pay.vue'),
         }
     ]

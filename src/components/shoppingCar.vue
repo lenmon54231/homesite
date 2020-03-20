@@ -1,20 +1,27 @@
 <template>
   <div class="car">
     <div v-show="showUp" class="showUp">
-      <div><h4>影院现有{{number}}部电影</h4></div>
-      <ul class="carLists">
+      <div>
+        <h4>影院现有{{ number }}部电影</h4>
+      </div>
+      <ul v-if="showList" class="carLists">
         <li>
           <div class="movieLists">
             <span class="name">电影名称</span>
             <span class="acount">数量</span>
-            <!-- <span>减少</span> -->
           </div>
         </li>
-        <li v-for="(item,index) in carMovie" :key="index">
+        <li v-for="(item, index) in carMovie" :key="index">
           <div class="movieLists">
-            <span class="name">{{item.object.title}}</span>
-            <span class="acount">{{item.account}}</span>
-            <!-- <span @click="delMovieList(item)">-</span> -->
+            <span class="name">{{ item.object.title }}</span>
+            <span class="acount">{{ item.account }}</span>
+          </div>
+        </li>
+      </ul>
+      <ul v-else>
+        <li>
+          <div v-show="!showUp">
+            <h3>还没有登录呢，点击登录</h3>
           </div>
         </li>
       </ul>
@@ -22,7 +29,7 @@
       <button style="display:none" class="toShopCar" @click="toParent()">点击传值</button>
     </div>
     <div class="carIcon" @click="showDetaid()">
-      <span class="movieAcount" v-show="movieAcountLoading">{{totalNumber}}</span>
+      <span class="movieAcount" v-show="movieAcountLoading">{{ totalNumber }}</span>
     </div>
   </div>
 </template>
@@ -34,15 +41,22 @@ export default {
   data() {
     return {
       message: { name: "购物车", color: "red" }, //测试子组件向父组件传值
-      showUp: false, // 电影详细列表
+      showUp: false, // 点击显示电影详细列表
+      showList: false, //根据登录状态显示电影列表
       movieAcountLoading: true //购物车上面的数字
     };
   },
   mounted() {},
   updated() {},
-  activated(){
+  activated() {
     this.showUp = false;
     this.movieAcountLoading = true;
+    let isLogin = JSON.parse(window.localStorage.getItem("passUsrInfo")).token?JSON.parse(window.localStorage.getItem("passUsrInfo")).token : "";
+    if(isLogin && this.common.judgeLogin()){
+      this.showList = true
+    }else{
+      this.showList = false
+    }
   },
   computed: {
     carMovie() {
@@ -72,7 +86,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 /* car容器 */
 .car {
@@ -88,7 +101,7 @@ export default {
   background-color: #ffffff;
 }
 
-.showUp>div:nth-child(1){
+.showUp > div:nth-child(1) {
   border-bottom: 1px black solid;
   height: 45px;
   display: flex;
@@ -97,7 +110,7 @@ export default {
   align-items: center;
 }
 
-.showUp div h4{
+.showUp div h4 {
   margin: 0;
   color: #2c2c2c;
   width: 90%;
@@ -107,14 +120,14 @@ export default {
   color: #ffffff;
   border-radius: 5px;
 }
-.carLists{
+.carLists {
   margin-bottom: 10px;
 }
-.carLists>li{
+.carLists > li {
   border-bottom: 1px grey solid;
   margin: 0 5px;
 }
-.carLists>li:nth-child(1){
+.carLists > li:nth-child(1) {
   font-size: 18px;
   font-weight: 550;
 }
@@ -136,7 +149,7 @@ export default {
   flex: 60%;
   text-indent: 1rem;
 }
-.movieLists > span:nth-child(2){
+.movieLists > span:nth-child(2) {
   text-align: center;
 }
 /* 购物车图标 */
@@ -144,9 +157,9 @@ export default {
   float: right;
   width: 32px;
   height: 32px;
-background-image: url(../assets/car.png);
-background-size: 32px auto; 
-cursor: pointer;  
+  background-image: url(../assets/car.png);
+  background-size: 32px auto;
+  cursor: pointer;
 }
 
 .movieAcount {
@@ -163,14 +176,13 @@ cursor: pointer;
   color: red;
 }
 
-
 .toShopCar {
   display: block;
   height: 30px;
   cursor: pointer;
 }
 
-.toShopCar>div{
+.toShopCar > div {
   width: 80%;
   border: 1px gray solid;
   text-align: center;
@@ -180,7 +192,7 @@ cursor: pointer;
   color: #ffffff;
   border-radius: 5px;
 }
-.toShopCar>div:hover{
+.toShopCar > div:hover {
   font-weight: 550;
 }
 </style>

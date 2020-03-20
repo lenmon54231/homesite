@@ -8,36 +8,45 @@
       </div>
     </div>
     <form class="mainPage">
-      <h2>账号注册</h2>
-      <div
-        class="accAndPass"
-        ref="accAndPass"
-        v-for="(item,index) in items1"
-        :key="index"
-        :class="{bottom:index === bottom || item.show}"
-      >
-        <span ref="spans" :class="{showup: index === showup || item.show}">{{item.text}}</span>
-        <input
-          ref="inputValue"
-          type="text"
-          v-model="item.value"
-          @focus="turnUp(index)"
-          @blur="turnOff(index)"
-        />
-        <div class="err" :class="{showerr:item.showerr}">{{item.err}}</div>
+      <h2>账号注册(待完善)</h2>
+      <div class="accAndPass" ref="accAndPass" v-for="(item, index) in items1" :key="index" :class="{ bottom: index === bottom || item.show }">
+        <span ref="spans" :class="{ showup: index === showup || item.show }">{{ item.text }}</span>
+        <input ref="inputValue" type="text" v-model="item.value" @focus="turnUp(index)" @blur="turnOff(index)" />
+        <div class="err" :class="{ showerr: item.showerr }">{{ item.err }}</div>
       </div>
-      <input type="submit" class="login" value="注册" :disabled="disabled" />
+      <div class="getCode">
+        <div @click="getCode()">获取模拟验证码</div>
+      </div>
+      <input @click="toLogin()" type="button" class="login" value="注册" />
       <div class="register">
         <div>
           返回:
           <router-link tag="a" to="/home" class="registerLink">主页</router-link>
         </div>
-        <div>
+        <div v-if="showRegLogin">
           已有账号？
           <router-link tag="a" to="/login" class="registerLink">登录</router-link>
         </div>
+        <div v-else>
+          去往
+          <router-link  tag="a" to="/center" class="registerLink">个人中心</router-link>
+        </div>
       </div>
     </form>
+    <div v-show="showcode" class="code">
+      <div class="codeCon">
+        <div>验证码</div>
+        <div>验证码为：6666</div>
+        <div>填写正确后点击注册按钮</div>
+        <div>
+          <button @click="closeCode()">关闭</button>
+        </div>
+      </div>
+    </div>
+    <div class="registerOK" v-if="registerOK">
+      <div class="registerOKtext">注册成功</div>
+      <div class="registerOKtext">3秒后跳转至登录页面</div>
+    </div>
   </div>
 </template>
 
@@ -63,45 +72,94 @@ export default {
           showerr: false
         }
       ],
+      //显示input底线
       bottom: "",
+      //显示input上移
       showup: "",
-      showerr: "",
+      //显示验证码
+      showcode: false,
+      //是否显示注册成功，3秒后跳转页面
+      registerOK: false,
+      //判断下方显示登录还是个人中心
+      showRegLogin:true
     };
   },
   mounted() {
     document.getElementById("appLoading").style.display = "none";
+    this.showRegLogin = !this.common.judgeLogin()
   },
   computed: {
-    disabled: function() {
-      var phoneNum = !this.common.phoneNumber(0, this.items1[0].value);
-      var disabled = this.common.checkInput(
-        this.items1[0].value,
-        this.items1[1].value,
-        phoneNum
-      );
-      return disabled;
-    }
   },
   methods: {
     turnUp(index) {
+      //当前的input 加下划线动画和上移
       this.bottom = index;
       this.showup = index;
     },
     turnOff(index) {
+      //检查当前input是否为空
       if (this.items1[index].value !== "") {
         this.items1[index].show = true;
         this.bottom = index;
         this.showup = index;
-        if (this.common.phoneNumber(index, this.items1[index].value)) {
-          this.items1[index].showerr = true;
-        } else {
-          this.items1[index].showerr = false;
+        //检查第一个input手机号是否正确
+        if (index == 0) {
+          if (this.common.phoneNumber(index, this.items1[index].value)) {
+            this.items1[0].err = "手机号码有误";
+            this.items1[0].showerr = false;
+          } else {
+            this.items1[0].err = "手机号码有误";
+            this.items1[0].showerr = true;
+          }
         }
       } else {
         this.items1[index].show = false;
         this.bottom = "";
         this.showup = "";
         this.items1[index].showerr = false;
+      }
+    },
+    getCode() {
+      this.showcode = true;
+    },
+    closeCode() {
+      this.showcode = false;
+    },
+    toLogin() {
+      if (this.common.phoneNumber(0, this.items1[0].value)) {
+        this.items1[0].showerr = false;
+        this.items1[0].err = "手机号码有误";
+        if (this.items1[1].value == 6666) {
+          this.items1[1].showerr = false;
+          let tem = JSON.parse(localStorage.getItem("usrname")) == null ? [] : JSON.parse(localStorage.getItem("usrname"));
+          let usrInfo = this.items1[0].value;
+          if (tem.length == 0) {
+            tem.push({ usrname: usrInfo });
+            window.localStorage.setItem("usrname", JSON.stringify(tem));
+            this.registerOK = true;
+            setTimeout(() => {
+              this.$router.push("/login");
+            }, 3000);
+          } else {
+            let index = tem.findIndex((x) => x.usrname == usrInfo);
+            if (index == -1) {
+              tem.push({ usrname: usrInfo });
+              window.localStorage.setItem("usrname", JSON.stringify(tem));
+              this.registerOK = true;
+              setTimeout(() => {
+                this.$router.push("/login");
+              }, 3000);
+            } else {
+              this.items1[0].err = "该手机号码已经被注册";
+              this.items1[0].showerr = true;
+            }
+          }
+        } else {
+          this.items1[1].showerr = true;
+        }
+      } else {
+        this.items1[0].showerr = true;
+        this.items1[0].err = "手机号码有误";
       }
     }
   }
@@ -210,6 +268,19 @@ body {
   height: 2px;
   background: linear-gradient(120deg, #3498db, #8e44ad);
 }
+.getCode {
+  width: 100%;
+  font-size: 16px;
+}
+.getCode > div {
+  float: right;
+  text-align: right;
+  padding: 0 10px;
+  margin-right: 50px;
+  color: #ffffff;
+  background-color: #34495e;
+  cursor: pointer;
+}
 .err {
   display: none;
   position: absolute;
@@ -248,11 +319,7 @@ body {
 }
 
 .login:hover {
-  background-image: linear-gradient(
-    to right bottom,
-    #34495e,
-    rgb(72, 147, 209)
-  );
+  background-image: linear-gradient(to right bottom, #34495e, rgb(72, 147, 209));
 }
 .register {
   width: 80%;
@@ -282,7 +349,38 @@ body {
   background-color: #34495e;
   color: #fff;
 }
-
+.code,
+.registerOK {
+  min-width: 300px;
+  min-height: 100px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 18px;
+  color: #fff;
+  font-size: 20px;
+}
+.registerOKtext {
+  text-align: center;
+  line-height: 100px;
+  font-size: 26px;
+}
+.codeCon {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.codeCon > div {
+  flex: 1;
+}
+.codeCon > div > button {
+  background-color: #34495e;
+  border: none;
+  border-radius: 8px;
+}
 @media screen and (max-width: 768px) {
   .mainPage {
     width: 80vmin;

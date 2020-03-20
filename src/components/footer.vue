@@ -5,7 +5,11 @@
         <div class="col-md-3">CALL ME. 0800-123-456</div>
         <div class="col-md-3">E-mail:limeng54231@163.com</div>
         <div class="col-md-3">QQ:894563328</div>
-        <div class="col-md-3">更多信息点击..</div>
+        <div class="col-md-3">
+          <div style="cursor: pointer">
+            <router-link tag="div" to="/resume">在线简历</router-link>
+          </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-md-offset-3 copyRight">CopyRight By Lee</div>
@@ -51,8 +55,8 @@ export default {
 /* 超小屏幕 */
 
 @media screen and (max-width: 992px) {
-    .footer{
-        height: 210px;
-    }
+  .footer {
+    height: 210px;
+  }
 }
 </style>

@@ -4,7 +4,6 @@
     <main class="container">
       <div class="mainBody">
         <div class="leftNav col-lg-1">
-          <h2>Quick links</h2>
           <div class="linkList">
             <a href="https://www.iconfont.cn/" target="_blank">
               <h3>
@@ -510,11 +509,10 @@ body {
 
 .leftNav {
   position: fixed;
-  top: 0;
+  top: 50px;
   bottom: 0;
   left: 0;
-  background-color: rgba(56, 68, 82, 0.9);
-  height: 100%;
+  height: calc(100vh - 50px);
   z-index: 100;
   padding: 0;
 }
@@ -533,13 +531,15 @@ body {
   height: 65px;
   width: 100%;
   font-size: 1rem;
-  background-color: #596275;
+  background-color: #384452;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   cursor: pointer;
+  border-right: gray 1px solid;
+  border-top: gray 1px solid;
 }
 
 .top span {
@@ -597,8 +597,7 @@ body {
 
 @media (min-width: 1700px) {
   .nav {
-    left: 8.3%;
-    width: 91.7%;
+    width: 100%;
   }
   .shareAndBlog {
     position: absolute;

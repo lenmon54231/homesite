@@ -18,6 +18,9 @@ html {
 * {
   box-sizing: border-box;
 }
+.red{
+  color: red;
+}
 
 ul {
   list-style: none;
@@ -97,14 +100,15 @@ a:focus {
 /* leftNav */
 .leftNav {
   position: fixed;
-  top: 0;
+  top: 50px;
   bottom: 0;
   left: 0;
-  background-color: rgba(56, 68, 82, 0.9);
-  height: 100%;
+  background-color: rgba(89,98,117,0.9);
+  height: calc(100vh - 50px);
   z-index: 100;
   padding: 0;
   width: 8.33333333%;
+  border-top: gray 1px solid;
 }
 .leftNav h2 {
   color: whitesmoke;
