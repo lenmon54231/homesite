@@ -27,10 +27,14 @@
       </div>
       <div class="main">
         <div class="usrinfo">
-                  <div class="usrname red">用户名:{{ usrname }}</div>
-                  <div class="loginTime">登录时间:{{time}}</div>
-                  <div class="loginTime">过期时间:{{overtime}}</div>
-                  <div v-if="timeToOver.sec>1">还有 <span class="red">{{timeToOver.min}}</span> 分钟 <span class="red">{{timeToOver.sec}}</span> 秒过期</div>
+          <div class="usrname red">用户名:{{ usrname }}</div>
+          <div class="loginTime">登录时间:{{time}}</div>
+          <div class="loginTime">过期时间:{{overtime}}</div>
+          <div v-if="showtime">
+            还有
+            <span class="red">{{timeToOver.min}}</span> 分钟
+            <span class="red">{{timeToOver.sec}}</span> 秒过期
+          </div>
         </div>
         <div class="showlist">
           <div>模拟占位</div>
@@ -45,7 +49,6 @@
         <div class="loginOut">登出</div>
       </div>
     </div>
-    </div>
   </div>
 </template>
 
@@ -58,50 +61,57 @@ export default {
   },
   data() {
     return {
-      usrname: "",
-      time: "",
-      overtime: "",
-      timeToOver:{min:"",sec:""},
+      usrname: "",//用户名
+      time: "",//登录时间
+      overtime: "",//到期时间
+      timeToOver: { min: "", sec: "" }, //到期时间分钟和秒钟
+      showtime: true,//显示到期时间元素
     };
   },
   mounted() {
     document.getElementById("appLoading").style.display = "none";
     let passUsrInfo = JSON.parse(window.localStorage.getItem("passUsrInfo"));
-    this.usrname = passUsrInfo.usrname?passUsrInfo.usrname:"无名氏";
-    this.time = passUsrInfo.time ?this.common.formatTime(passUsrInfo.time) : "已经过期，请重新登录"
-    this.overtime = passUsrInfo.time ?this.common.formatTime(passUsrInfo.time + 600000) : "已经过期，请重新登录"
-    this.timesub(passUsrInfo.time)
+    this.usrname = passUsrInfo.usrname ? passUsrInfo.usrname : "无名氏";
+    this.time = passUsrInfo.time
+      ? this.common.formatTime(passUsrInfo.time)
+      : "已经过期，请重新登录";
+    this.overtime = passUsrInfo.time
+      ? this.common.formatTime(passUsrInfo.time + 600000)
+      : "已经过期，请重新登录";
+    this.timesub(passUsrInfo.time);
   },
-  methods:{
-    timesub(time){
-      this.timeToOver.min = parseInt((603 - (Date.now() - time)/1000)/60);
-      this.timeToOver.sec = parseInt((603 - (Date.now() - time)/1000)%60)
-      let timeover = setInterval(() => {
-        if(this.timeToOver.sec > 1){
-                this.timeToOver.min = parseInt((603 - (Date.now() - time)/1000)/60);
-           this.timeToOver.sec = parseInt((603 - (Date.now() - time)/1000)%60)
-        }else{
+  methods: {
+    timesub(time) {
+      let timeSurplus = 603 - (Date.now() - time) / 1000;
+      this.timeToOver.min = parseInt(timeSurplus / 60);
+      this.timeToOver.sec = parseInt(timeSurplus % 60);
+      let timeover = setInterval(timeSurplus => {
+        let now = 603 - (Date.now() - time) / 1000
+        if (now > 1) {
+          this.timeToOver.min = parseInt(now / 60);
+          this.timeToOver.sec = parseInt(now % 60);
+        } else {
           this.timeToOver.min = 0;
-this.timeToOver.sec = 0;
-          clearInterval(timeover)
+          this.timeToOver.sec = 0;
+          this.showtime = false;
+          clearInterval(timeover);
         }
       }, 1000);
     }
-  },
-
+  }
 };
 </script>
 
 <style scoped>
-.mainpage{
+.mainpage {
   margin: auto;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: flex-start;
-    margin: 50px 25px 0 25px;
+  margin: 50px 25px 0 25px;
 }
-.leftnav{
+.leftnav {
   flex: 0 0 auto;
   margin-right: 50px;
 }

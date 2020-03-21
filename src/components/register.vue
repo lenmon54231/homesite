@@ -237,12 +237,10 @@ body {
   border-bottom: 2px solid lightgray;
   position: relative;
   width: 80%;
-  height: 50px;
   margin: 10px 0;
 }
 
 .accAndPass input {
-  height: 50px;
   width: 100%;
   outline: none;
   padding: 0;
@@ -399,7 +397,6 @@ body {
     line-height: 40px;
   }
   .accAndPass input {
-    height: 50px;
     width: 100%;
     outline: none;
     padding: 0;

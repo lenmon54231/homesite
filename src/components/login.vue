@@ -236,12 +236,10 @@ body {
   border-bottom: 2px solid lightgray;
   position: relative;
   width: 80%;
-  height: 50px;
   margin: 10px 0;
 }
 
 .accAndPass input {
-  height: 50px;
   width: 100%;
   outline: none;
   padding: 0;
@@ -408,12 +406,14 @@ body {
   .register div:nth-child(2) {
     flex: 100%;
   }
+  .err{
+    font-size: 2vw;
+  }
   .login {
     height: 40px;
     line-height: 40px;
   }
   .accAndPass input {
-    height: 50px;
     width: 100%;
     outline: none;
     padding: 0;
