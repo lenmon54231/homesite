@@ -18,14 +18,17 @@
           </div>
         </li>
       </ul>
-      <ul v-else>
-        <li>
-          <div v-show="!showUp">
-            <h3>还没有登录呢，点击登录</h3>
+      <ul v-else class="carLists">
+        <li class="showLogin">
+          <div>
+            还没有登录呢，点击
+            <router-link to="/login" tag="span" style="color:red;cursor:pointer;">登录</router-link>
           </div>
         </li>
       </ul>
-      <div class="toShopCar" @click="toPay()"><div>结账去...</div></div>
+      <div class="toShopCar" @click="toPay()">
+        <div>结账去...</div>
+      </div>
       <button style="display:none" class="toShopCar" @click="toParent()">点击传值</button>
     </div>
     <div class="carIcon" @click="showDetaid()">
@@ -50,12 +53,20 @@ export default {
   updated() {},
   activated() {
     this.showUp = false;
-    this.movieAcountLoading = true;
-    let isLogin = JSON.parse(window.localStorage.getItem("passUsrInfo")).token?JSON.parse(window.localStorage.getItem("passUsrInfo")).token : "";
-    if(isLogin && this.common.judgeLogin()){
-      this.showList = true
-    }else{
-      this.showList = false
+    let isLogin = JSON.parse(window.localStorage.getItem("passUsrInfo")).token
+      ? JSON.parse(window.localStorage.getItem("passUsrInfo")).token
+      : "";
+      //true显示数字，false不显示
+    if (isLogin) {
+      this.movieAcountLoading = true;
+    } else {
+      this.movieAcountLoading = false;
+    }
+    //false显示去登录提示，true显示购物车里的物品
+    if (isLogin && this.common.judgeLogin()) {
+      this.showList = true;
+    } else {
+      this.showList = false;
     }
   },
   computed: {
@@ -131,7 +142,14 @@ export default {
   font-size: 18px;
   font-weight: 550;
 }
-
+.showLogin {
+  min-height: 10vh;
+  margin: 0;
+  display: flex;
+}
+.showLogin > div {
+  margin: auto;
+}
 .movieLists {
   display: flex;
   flex-flow: row nowrap;

@@ -30,7 +30,7 @@
           <div class="usrname red">用户名:{{ usrname }}</div>
           <div class="loginTime">登录时间:{{time}}</div>
           <div class="loginTime">过期时间:{{overtime}}</div>
-          <div v-if="showtime">
+          <div v-if="closeOverTime > 0">
             还有
             <span class="red">{{timeToOver.min}}</span> 分钟
             <span class="red">{{timeToOver.sec}}</span> 秒过期
@@ -65,7 +65,7 @@ export default {
       time: "",//登录时间
       overtime: "",//到期时间
       timeToOver: { min: "", sec: "" }, //到期时间分钟和秒钟
-      showtime: true,//显示到期时间元素
+      closeOverTime: 0,//距离到期多少秒
     };
   },
   mounted() {
@@ -83,6 +83,7 @@ export default {
   methods: {
     timesub(time) {
       let timeSurplus = 603 - (Date.now() - time) / 1000;
+      this.closeOverTime = timeSurplus;
       this.timeToOver.min = parseInt(timeSurplus / 60);
       this.timeToOver.sec = parseInt(timeSurplus % 60);
       let timeover = setInterval(timeSurplus => {
@@ -93,7 +94,6 @@ export default {
         } else {
           this.timeToOver.min = 0;
           this.timeToOver.sec = 0;
-          this.showtime = false;
           clearInterval(timeover);
         }
       }, 1000);

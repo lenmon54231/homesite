@@ -29,6 +29,7 @@ export default new VueRouter({
 
 // 全局路由守卫
 // router.beforeEach((to, from, next) => {
+//   let nameLists = ["center",""]
 //   let isLogin = JSON.parse(window.localStorage.getItem("passUsrInfo")).token
 //   if (to.meta.needLogin) {  // 判断该路由是否需要登录权限
 //     if (isLogin) { // 判断是否已经登录

@@ -71,7 +71,7 @@ export default {
         let hours = tf(t.getHours())
         let minutes = tf(t.getMinutes())
         let secondes = tf(t.getSeconds())
-        let formatTime = year+'-'+mouth+'-'+data+' '+hours+'时'+minutes+'分'+secondes+'秒';
+        let formatTime = year + '-' + mouth + '-' + data + ' ' + hours + '时' + minutes + '分' + secondes + '秒';
         return formatTime;
-    }
+    },
 }

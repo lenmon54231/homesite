@@ -2,11 +2,21 @@
   <div>
     <div class="row carousel" ref="carousel">
       <ul class="linkToIndex">
-        <li v-for="(item, index) in imgList" :key="index" @click="toIndex(index)" class="linkToIndexLi">
+        <li
+          v-for="(item, index) in imgList"
+          :key="index"
+          @click="toIndex(index)"
+          class="linkToIndexLi"
+        >
           <img class="littleImg" :src="imgList[index].url" />
         </li>
       </ul>
-      <div v-cloak :style="{ backgroundColor: imgList[currentIndex].bc }" class="rollImgCon" ref="imgBc">
+      <div
+        v-cloak
+        :style="{ backgroundColor: imgList[currentIndex].bc }"
+        class="rollImgCon"
+        ref="imgBc"
+      >
         <img class="rollImg" :src="imgList[currentIndex].url" />
       </div>
       <div class="toleft" @click="toLeft()"></div>
@@ -51,7 +61,12 @@
                     <span>动作</span>
                   </li>
                 </div>
-                <li v-else v-for="(item, index) in movieGenres" :key="index" @click="toMovieGenres(index)">
+                <li
+                  v-else
+                  v-for="(item, index) in movieGenres"
+                  :key="index"
+                  @click="toMovieGenres(index)"
+                >
                   <span>{{ item.index }}</span>
                   <span>({{ item.list.length }})</span>
                 </li>
@@ -61,7 +76,14 @@
           <div class="col-md-10 allMovie">
             <div class="searchBar">
               <div>搜索电影</div>
-              <input ref="searchMovie" id="searchMovie" type="text" placeholder="请稍等，获取数据中....." disabled="disabled" @input="doSearch" />
+              <input
+                ref="searchMovie"
+                id="searchMovie"
+                type="text"
+                placeholder="请稍等，获取数据中....."
+                disabled="disabled"
+                @input="doSearch"
+              />
               <button @click="cleanValue">×</button>
             </div>
             <div class="mainLoading" v-if="isLoading">
@@ -81,12 +103,8 @@
                     </div>
                     <div class="price">价格：{{ item.collect_count | price }}元/10年</div>
                     <div class="movieDetail">
-                      <div class="detail" @click="handToDetail(item.id)">
-                        查看内容
-                      </div>
-                      <div class="buyIt" @click="buyTheMovie(item)">
-                        点击购买
-                      </div>
+                      <div class="detail" @click="handToDetail(item.id)">查看内容</div>
+                      <div class="buyIt" @click="buyTheMovie(item)">点击购买</div>
                     </div>
                   </div>
                 </li>
@@ -111,6 +129,7 @@
 <script>
 import Shop from "@/components/shoppingCar.vue";
 import mini from "@/components/minipro.vue";
+
 //防抖函数
 function debounce(fn, delay = 2000) {
   //可以放入项目中的公共方法中进行调用（鹅只是省事）
@@ -137,7 +156,51 @@ function debounce(fn, delay = 2000) {
     }
   };
 }
+
 var carouselTimer = ""; //定义轮播图变量
+
+//滚轮事件
+// 鼠标滚轮事件
+function getWheelDelta(event) {
+  if (event.wheelDelta) {
+    return event.wheelDelta;
+  } else {
+    // 兼容火狐
+    return -event.detail;
+  }
+}
+// 鼠标滚动逻辑（全屏滚动关键逻辑）
+function scrollMouse(event) {
+  event.preventDefault();
+  let delta = getWheelDelta(event);
+  let locationNow = document.documentElement.scrollTop;
+  // delta < 0，鼠标往前滚动，页面向下滚动
+  if (delta < 0) {
+    goDown(locationNow);
+  } else {
+    goUp(locationNow);
+  }
+}
+function goDown(locationNow) {
+  let allHight = document.body.clientHeight;
+  if (allHight > locationNow + 80) {
+    window.scrollTo(0, locationNow + 80);
+  }
+}
+function goUp(locationNow) {
+  if (locationNow > 80) {
+    window.scrollTo(0, locationNow - 80);
+  } else {
+    window.scrollTo(0, 0);
+  }
+}
+// 鼠标滚轮监听，火狐鼠标滚动事件不同其他
+if (navigator.userAgent.toLowerCase().indexOf("firefox") === -1) {
+  document.addEventListener("mousewheel", scrollMouse, { passive: false });
+} else {
+  document.addEventListener("DOMMouseScroll", scrollMouse);
+}
+
 export default {
   name: "movieLists",
   components: {
@@ -148,19 +211,23 @@ export default {
     return {
       imgList: [
         {
-          url: "http://i1.letvimg.com/lc01_iscms/201912/27/15/41/62c9a08025a54142973afeec14a190aa.jpg",
+          url:
+            "http://i1.letvimg.com/lc01_iscms/201912/27/15/41/62c9a08025a54142973afeec14a190aa.jpg",
           bc: "rgb(16, 16, 26)"
         },
         {
-          url: "http://i2.letvimg.com/lc03_iscms/202002/05/16/18/f776d59499674e8b942cfb1da46f8bad.jpg",
+          url:
+            "http://i2.letvimg.com/lc03_iscms/202002/05/16/18/f776d59499674e8b942cfb1da46f8bad.jpg",
           bc: "rgb(16, 10, 10)"
         },
         {
-          url: "http://i1.letvimg.com/lc06_iscms/201912/11/16/38/43f7c29900904d4380841c221dab93d7.jpg",
+          url:
+            "http://i1.letvimg.com/lc06_iscms/201912/11/16/38/43f7c29900904d4380841c221dab93d7.jpg",
           bc: "rgb(17, 9, 1)"
         },
         {
-          url: "http://i1.letvimg.com/lc01_iscms/201912/06/15/40/2e164905df1e49618bee541694548bb1.jpg",
+          url:
+            "http://i1.letvimg.com/lc01_iscms/201912/06/15/40/2e164905df1e49618bee541694548bb1.jpg",
           bc: "rgb(0, 0, 0)"
         }
       ],
@@ -194,7 +261,7 @@ export default {
   },
   created() {
     // 获取电影列表
-    this.axios.get("/v2/movie/top250?start=0&count=12").then((res) => {
+    this.axios.get("/v2/movie/top250?start=0&count=12").then(res => {
       if (res.status == 200) {
         this.items = res.data.subjects;
         this.firstPMovie = res.data.subjects;
@@ -203,7 +270,7 @@ export default {
         this.inputOk();
       }
     });
-    this.axios.get("/v2/movie/top250?start=0&count=90").then((res) => {
+    this.axios.get("/v2/movie/top250?start=0&count=90").then(res => {
       if (res.status == 200) {
         var movieLists = res.data.subjects;
       }
@@ -222,7 +289,7 @@ export default {
     });
     this.common.toTop(0);
   },
-  mounted(){
+  mounted() {
     document.getElementById("appLoading").style.display = "none";
   },
   activated() {
@@ -237,9 +304,6 @@ export default {
         this.timer = 0;
       }
     }, 2000);
-    // //加载local
-    // var movieTem = JSON.parse(window.localStorage.getItem("tempMovie"));
-    // this.$store.commit("setShopCar", movieTem);
     //侧边栏随动
     if (this.width > 990) {
       window.addEventListener("scroll", this.navScroll);
@@ -299,9 +363,17 @@ export default {
       var out = setInterval(() => {
         if (this.allMovie.length == 90) {
           if (this.liIndexList == 8) {
-            this.items = this.allMovie.slice(parseInt(e) * 12 - 12, parseInt(e) * 12, (this.isLoading = false));
+            this.items = this.allMovie.slice(
+              parseInt(e) * 12 - 12,
+              parseInt(e) * 12,
+              (this.isLoading = false)
+            );
           } else {
-            this.items = this.movieGenres_index_list.slice(parseInt(e) * 12 - 12, parseInt(e) * 12, (this.isLoading = false));
+            this.items = this.movieGenres_index_list.slice(
+              parseInt(e) * 12 - 12,
+              parseInt(e) * 12,
+              (this.isLoading = false)
+            );
           }
           clearInterval(out); //单页面应用，定时器并不会自动关闭，需要手动清除
         }
@@ -353,7 +425,8 @@ export default {
           });
         } else {
           for (let j = 0; j < movieGenres.length; j++) {
-            if (movieGenres[j].index == nowGenres) movieGenres[j].list.push(movieLists[i]);
+            if (movieGenres[j].index == nowGenres)
+              movieGenres[j].list.push(movieLists[i]);
           }
         }
       }
@@ -446,8 +519,8 @@ export default {
       var h = this.$refs.carousel.offsetHeight;
       this.scrollPosition = document.documentElement.scrollTop;
       this.$store.commit("setScrollPosition", this.scrollPosition);
+      console.log(this.scrollPosition);
       var offtop = document.documentElement.scrollTop + 50;
-      this.$state;
       if (document.body.clientWidth > 972) {
         if (offtop > h) {
           this.movieG2 = true;
@@ -623,7 +696,7 @@ export default {
 /* carousel */
 
 .carousel {
-  height: 620px;
+  height: 640px;
   position: relative;
   overflow: hidden;
   margin: 0 0 20px 0;
@@ -632,7 +705,7 @@ export default {
 
 .linkToIndex {
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -911,7 +984,7 @@ export default {
 /* 小于1700px */
 @media screen and (max-width: 1700px) {
   .carousel {
-    height: 460px;
+    height: 480px;
     position: relative;
     overflow: hidden;
   }
@@ -934,7 +1007,7 @@ export default {
 /* 小于1200px */
 @media screen and (max-width: 1200px) {
   .carousel {
-    height: 380px;
+    height: 400px;
     position: relative;
     overflow: hidden;
   }
