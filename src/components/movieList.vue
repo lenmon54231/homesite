@@ -237,9 +237,9 @@ export default {
         this.timer = 0;
       }
     }, 2000);
-    //加载local
-    var movieTem = JSON.parse(window.localStorage.getItem("tempMovie"));
-    this.$store.commit("setShopCar", movieTem);
+    // //加载local
+    // var movieTem = JSON.parse(window.localStorage.getItem("tempMovie"));
+    // this.$store.commit("setShopCar", movieTem);
     //侧边栏随动
     if (this.width > 990) {
       window.addEventListener("scroll", this.navScroll);

@@ -77,9 +77,9 @@ export default {
     };
   },
   mounted() {
-    //加载local
-    var movieTem = JSON.parse(window.localStorage.getItem("tempMovie"));
-    this.$store.commit("setShopCar", movieTem);
+    // //加载local
+    // var movieTem = JSON.parse(window.localStorage.getItem("tempMovie"));
+    // this.$store.commit("setShopCar", movieTem);
     //加载完毕，loading消失
     document.getElementById("appLoading").style.display = "none";
   },
