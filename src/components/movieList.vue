@@ -182,10 +182,7 @@ function scrollMouse(event) {
   }
 }
 function goDown(locationNow) {
-  let allHight = document.body.clientHeight;
-  if (allHight > locationNow + 80) {
-    window.scrollTo(0, locationNow + 80);
-  }
+  window.scrollTo(0, locationNow + 80);
 }
 function goUp(locationNow) {
   if (locationNow > 80) {
@@ -462,12 +459,7 @@ export default {
     },
     //添加到购物车
     buyTheMovie(item) {
-      var reg = this.$store.state.carMovie;
-      reg.push({
-        account: 1,
-        object: item
-      });
-      this.$store.commit("setShopCar", reg);
+      this.$store.commit("setShopCar", item);
     },
     //搜索功能
     doSearch: debounce(function() {
@@ -519,7 +511,6 @@ export default {
       var h = this.$refs.carousel.offsetHeight;
       this.scrollPosition = document.documentElement.scrollTop;
       this.$store.commit("setScrollPosition", this.scrollPosition);
-      console.log(this.scrollPosition);
       var offtop = document.documentElement.scrollTop + 50;
       if (document.body.clientWidth > 972) {
         if (offtop > h) {

@@ -11,28 +11,28 @@
       </li>
       <li v-for="(item,index) in carMovie" :key="index">
         <div class="imgCon">
-          <img class="img" :src="item.object.images.small" alt />
+          <img class="img" :src="item.images.small" alt />
         </div>
         <div class="moreDetail">
-          <div class="name">名称：{{item.object.title}}</div>
-          <div class="year">上映年份：{{item.object.year}}</div>
-          <div class="durations">播放时长：{{item.object.durations[0]}}</div>
+          <div class="name">名称：{{item.title}}</div>
+          <div class="year">上映年份：{{item.year}}</div>
+          <div class="durations">播放时长：{{item.durations[0]}}</div>
         </div>
         <div class="price">
           <span>单价：</span>
-          <span>{{item.object.collect_count | price}}(元)/10年</span>
+          <span>{{item.collect_count | price}}(元)/10年</span>
         </div>
         <div class="count">
           <span>数量：</span>
           <span>
             <span class="reduce" @click="reduceA(index)"></span>
             <span>{{item.account}}0年</span>
-            <span class="add" @click="addA(index)"></span>
+            <span class="add" @click="addA(item)"></span>
           </span>
         </div>
         <div class="allprice">
           <span>总价：</span>
-          <span>¥ {{item.object.collect_count * item.account | price}} (元)</span>
+          <span>¥ {{item.collect_count * item.account | price}} (元)</span>
         </div>
         <div class="del" @click="delMovieList(index)">
           <div>
@@ -77,20 +77,11 @@ export default {
     };
   },
   mounted() {
-    // //加载local
-    // var movieTem = JSON.parse(window.localStorage.getItem("tempMovie"));
-    // this.$store.commit("setShopCar", movieTem);
     //加载完毕，loading消失
     document.getElementById("appLoading").style.display = "none";
   },
   updated() {},
-  filters: {
-    // format: function(value) {
-    //   var num2 = Number(value).toFixed(2);
-    //   var num = num2.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-    //   return num;
-    // }
-  },
+  filters: {},
   computed: {
     carMovie() {
       return this.$store.state.carMovie;
@@ -99,7 +90,7 @@ export default {
       var allPrice = 0;
       var carMovie = this.carMovie;
       for (let i = 0; i < this.carMovie.length; i++) {
-        allPrice += carMovie[i].object.collect_count * carMovie[i].account;
+        allPrice += carMovie[i].collect_count * carMovie[i].account;
       }
       return allPrice;
     }
@@ -115,33 +106,16 @@ export default {
     },
     //删除相同电影
     delMovieList(index) {
-      var nowMovie = this.carMovie;
-      var length = 0;
-      for (let i = 0; i < nowMovie.length; i++) {
-        length += nowMovie[i].account;
-      }
-      for (let i = 0; i < nowMovie.length; i++) {
-        if (nowMovie[index].object.title == nowMovie[i].object.title) {
-          nowMovie.splice(i, 1);
-        }
-      }
-      this.$store.commit("setShopCar", nowMovie);
+      this.$store.commit("subShopcar", { index: index, subAll: true });
     },
     // 删除一个电影
     reduceA(index) {
-      var nowMovie = this.carMovie;
-      if (nowMovie[index].account > 1) {
-        nowMovie[index].account--;
-      } else {
-        nowMovie.splice(index, 1);
-      }
-      this.$store.commit("setShopCar", nowMovie);
+      console.log("2")
+      this.$store.commit("subShopcar", { index: index, subAll: false });
     },
     // 增加一个电影
-    addA(index) {
-      var nowMovie = this.carMovie;
-      nowMovie[index].account++;
-      this.$store.commit("setShopCar", nowMovie);
+    addA(item) {
+      this.$store.commit("setShopCar", item);
     }
   }
 };
@@ -154,7 +128,7 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 }
 
 /* goodsList */

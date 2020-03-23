@@ -94,8 +94,14 @@
             </ul>
           </div>
           <div class="count">
-            <div class="number"><h4>自由评论</h4></div>
-            <div class="sort">排序方式： <span>倒序</span>  <span>正序</span></div>
+            <div class="number">
+              <h4>自由评论</h4>
+            </div>
+            <div class="sort">
+              排序方式：
+              <span>倒序</span>
+              <span>正序</span>
+            </div>
           </div>
           <form action>
             <input type="text" />
@@ -163,12 +169,7 @@ export default {
   updated() {},
   methods: {
     buyTheMovie(movieDetail) {
-      var reg = this.$store.state.carMovie;
-      reg.push({
-        account: 1,
-        object: movieDetail
-      });
-      this.$store.commit("setShopCar", reg);
+      this.$store.commit("setShopCar", movieDetail);
     }
   }
 };
@@ -176,8 +177,8 @@ export default {
 
 
 <style scoped>
-[v-cloak]{
-  display:  none;
+[v-cloak] {
+  display: none;
 }
 h1,
 h2,
@@ -290,7 +291,7 @@ h6 {
   justify-content: space-around;
   align-content: center;
 }
-.moreImgCon > li{
+.moreImgCon > li {
   margin-bottom: 15px;
 }
 .moreImg {
@@ -320,7 +321,7 @@ h6 {
 }
 
 /* 热门评论 */
-.comment{
+.comment {
   margin-top: 15px;
 }
 
@@ -350,13 +351,13 @@ h6 {
   font-weight: 600;
 }
 
-.sort{
+.sort {
   text-align: right;
   margin-right: 10rem;
 }
 /* 大于1700px */
 @media screen and (min-width: 1700px) {
-  .container{
+  .container {
     width: 1450px;
   }
   .otherDetail {
@@ -375,8 +376,8 @@ h6 {
   }
 }
 
-@media screen and (max-width: 1700px){
-    .discount {
+@media screen and (max-width: 1700px) {
+  .discount {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
@@ -390,7 +391,7 @@ h6 {
   }
 }
 @media screen and (max-width: 768px) {
-  .priceABuy{
+  .priceABuy {
     height: 60px;
   }
   .discount {

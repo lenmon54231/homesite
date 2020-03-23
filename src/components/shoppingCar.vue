@@ -13,7 +13,7 @@
         </li>
         <li v-for="(item, index) in carMovie" :key="index">
           <div class="movieLists">
-            <span class="name">{{ item.object.title }}</span>
+            <span class="name">{{ item.title }}</span>
             <span class="acount">{{ item.account }}</span>
           </div>
         </li>
@@ -46,28 +46,16 @@ export default {
       message: { name: "购物车", color: "red" }, //测试子组件向父组件传值
       showUp: false, // 点击显示电影详细列表
       showList: false, //根据登录状态显示电影列表
-      movieAcountLoading: true //购物车上面的数字
+      movieAcountLoading: false, //购物车上面的数字
+      isLogin: false
     };
   },
-  mounted() {},
+  mounted() {
+    this.toJudge();
+  },
   updated() {},
   activated() {
-    this.showUp = false;
-    let isLogin = JSON.parse(window.localStorage.getItem("passUsrInfo")).token
-      ? JSON.parse(window.localStorage.getItem("passUsrInfo")).token
-      : "";
-      //true显示数字，false不显示
-    if (isLogin) {
-      this.movieAcountLoading = true;
-    } else {
-      this.movieAcountLoading = false;
-    }
-    //false显示去登录提示，true显示购物车里的物品
-    if (isLogin && this.common.judgeLogin()) {
-      this.showList = true;
-    } else {
-      this.showList = false;
-    }
+    this.toJudge();
   },
   computed: {
     carMovie() {
@@ -83,14 +71,30 @@ export default {
       this.$emit("sendToFather", this.message);
     },
     showDetaid() {
-      var reg = this.showUp;
-      var reg2 = this.movieAcountLoading;
-      this.showUp = !reg;
-      this.movieAcountLoading = !reg2;
+      this.showUp = !this.showUp;
+      if (this.isLogin && this.common.judgeLogin()) {
+        this.movieAcountLoading = !this.showUp;
+      } else {
+        this.movieAcountLoading = false;
+      }
     },
     toPay() {
       if (this.$store.state.carMovie.length > 0) {
         this.$router.push("/mall/pay");
+      }
+    },
+    toJudge() {
+      this.showUp = false;
+      this.isLogin = JSON.parse(window.localStorage.getItem("passUsrInfo"))
+        .token
+        ? JSON.parse(window.localStorage.getItem("passUsrInfo")).token
+        : "";
+      //false没有登录或者登录失效，true已经登录并且失效时间内
+      if (this.isLogin && this.common.judgeLogin()) {
+        this.showList = true;
+        this.movieAcountLoading = true;
+      } else {
+        this.showList = false;
       }
     }
   }
