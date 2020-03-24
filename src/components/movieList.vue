@@ -209,22 +209,22 @@ export default {
       imgList: [
         {
           url:
-            "http://i1.letvimg.com/lc01_iscms/201912/27/15/41/62c9a08025a54142973afeec14a190aa.jpg",
-          bc: "rgb(16, 16, 26)"
+            "https://limengtupian.oss-cn-beijing.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/1.jpg",
+          bc: "rgb(0, 0, 0)"
         },
         {
           url:
-            "http://i2.letvimg.com/lc03_iscms/202002/05/16/18/f776d59499674e8b942cfb1da46f8bad.jpg",
-          bc: "rgb(16, 10, 10)"
+            "https://limengtupian.oss-cn-beijing.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/2.jpg",
+          bc: "rgb(5, 3, 5)"
         },
         {
           url:
-            "http://i1.letvimg.com/lc06_iscms/201912/11/16/38/43f7c29900904d4380841c221dab93d7.jpg",
+            "https://limengtupian.oss-cn-beijing.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/3.jpg",
           bc: "rgb(17, 9, 1)"
         },
         {
           url:
-            "http://i1.letvimg.com/lc01_iscms/201912/06/15/40/2e164905df1e49618bee541694548bb1.jpg",
+            "https://limengtupian.oss-cn-beijing.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/4.jpg",
           bc: "rgb(0, 0, 0)"
         }
       ],
