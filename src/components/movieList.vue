@@ -510,15 +510,16 @@ export default {
     navScroll() {
       var h = this.$refs.carousel.offsetHeight;
       this.scrollPosition = document.documentElement.scrollTop;
-      this.$store.commit("setScrollPosition", this.scrollPosition);
-      var offtop = document.documentElement.scrollTop + 50;
+      console.log(this.scrollPosition, h);
+      var offtop = h - 50;
       if (document.body.clientWidth > 972) {
-        if (offtop > h) {
+        if (this.scrollPosition > offtop) {
           this.movieG2 = true;
         } else {
           this.movieG2 = false;
         }
       }
+      this.$store.commit("setScrollPosition", this.scrollPosition);
     }
   }
 };
@@ -687,7 +688,7 @@ export default {
 /* carousel */
 
 .carousel {
-  height: 640px;
+  height: 530px;
   position: relative;
   overflow: hidden;
   margin: 0 0 20px 0;
@@ -696,7 +697,7 @@ export default {
 
 .linkToIndex {
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -719,7 +720,7 @@ export default {
 
 .rollImgCon {
   width: 100%;
-  height: 540px;
+  height: 450px;
 }
 
 .rollImg {
@@ -727,7 +728,7 @@ export default {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  height: 540px;
+  height: 450px;
 }
 
 .toleft,
@@ -975,16 +976,16 @@ export default {
 /* 小于1700px */
 @media screen and (max-width: 1700px) {
   .carousel {
-    height: 480px;
+    height: 450px;
     position: relative;
     overflow: hidden;
   }
   .rollImgCon {
     width: 100%;
-    height: 390px;
+    height: 380px;
   }
   .rollImg {
-    height: 390px;
+    height: 380px;
   }
   .littleImg {
     width: 150px;
@@ -998,16 +999,16 @@ export default {
 /* 小于1200px */
 @media screen and (max-width: 1200px) {
   .carousel {
-    height: 400px;
+    height: 370px;
     position: relative;
     overflow: hidden;
   }
   .rollImgCon {
     width: 100%;
-    height: 320px;
+    height: 310px;
   }
   .rollImg {
-    height: 320px;
+    height: 310px;
   }
   .littleImg {
     width: 120px;
@@ -1051,7 +1052,7 @@ export default {
     background-size: 100% auto;
   }
   .carousel {
-    height: 320px;
+    height: 290px;
     position: relative;
     overflow: hidden;
   }

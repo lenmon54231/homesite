@@ -8,7 +8,7 @@
       </div>
     </div>
     <form class="mainPage">
-      <h2>账号登录(待完善)</h2>
+      <h2>账号登录</h2>
       <div class="accAndPass" v-for="(item, index) in items1" :key="index" :class="{ bottom: index === bottom || item.show }">
         <span ref="spans" :class="{ showup: index === showup || item.show }">{{ item.text }}</span>
         <input ref="inputGroup" name="inputValue" :type="item.type" @focus="turnUp(index)" @blur="turnOff(index)" v-model="item.value" autocomplete="current-password" />
