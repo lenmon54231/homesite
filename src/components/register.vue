@@ -9,9 +9,21 @@
     </div>
     <form class="mainPage">
       <h2>账号注册</h2>
-      <div class="accAndPass" ref="accAndPass" v-for="(item, index) in items1" :key="index" :class="{ bottom: index === bottom || item.show }">
+      <div
+        class="accAndPass"
+        ref="accAndPass"
+        v-for="(item, index) in items1"
+        :key="index"
+        :class="{ bottom: index === bottom || item.show }"
+      >
         <span ref="spans" :class="{ showup: index === showup || item.show }">{{ item.text }}</span>
-        <input ref="inputValue" type="text" v-model="item.value" @focus="turnUp(index)" @blur="turnOff(index)" />
+        <input
+          ref="inputValue"
+          type="text"
+          v-model="item.value"
+          @focus="turnUp(index)"
+          @blur="turnOff(index)"
+        />
         <div class="err" :class="{ showerr: item.showerr }">{{ item.err }}</div>
       </div>
       <div class="getCode">
@@ -29,7 +41,7 @@
         </div>
         <div v-else>
           去往
-          <router-link  tag="a" to="/center" class="registerLink">个人中心</router-link>
+          <router-link tag="a" to="/center" class="registerLink">个人中心</router-link>
         </div>
       </div>
     </form>
@@ -81,15 +93,17 @@ export default {
       //是否显示注册成功，3秒后跳转页面
       registerOK: false,
       //判断下方显示登录还是个人中心
-      showRegLogin:true
+      showRegLogin: true
     };
   },
   mounted() {
     document.getElementById("appLoading").style.display = "none";
-    this.showRegLogin = !this.common.judgeLogin()
+    this.showRegLogin = !this.common.judgeLogin();
   },
-  computed: {
+  beforeDestroy() {
+    document.getElementById("appLoading").style.display = "block";
   },
+  computed: {},
   methods: {
     turnUp(index) {
       //当前的input 加下划线动画和上移
@@ -131,7 +145,10 @@ export default {
         this.items1[0].err = "手机号码有误";
         if (this.items1[1].value == 6666) {
           this.items1[1].showerr = false;
-          let tem = JSON.parse(localStorage.getItem("usrname")) == null ? [] : JSON.parse(localStorage.getItem("usrname"));
+          let tem =
+            JSON.parse(localStorage.getItem("usrname")) == null
+              ? []
+              : JSON.parse(localStorage.getItem("usrname"));
           let usrInfo = this.items1[0].value;
           if (tem.length == 0) {
             tem.push({ usrname: usrInfo });
@@ -141,7 +158,7 @@ export default {
               this.$router.push("/login");
             }, 3000);
           } else {
-            let index = tem.findIndex((x) => x.usrname == usrInfo);
+            let index = tem.findIndex(x => x.usrname == usrInfo);
             if (index == -1) {
               tem.push({ usrname: usrInfo });
               window.localStorage.setItem("usrname", JSON.stringify(tem));
@@ -317,7 +334,11 @@ body {
 }
 
 .login:hover {
-  background-image: linear-gradient(to right bottom, #34495e, rgb(72, 147, 209));
+  background-image: linear-gradient(
+    to right bottom,
+    #34495e,
+    rgb(72, 147, 209)
+  );
 }
 .register {
   width: 80%;

@@ -165,7 +165,12 @@ export default {
       }
     });
   },
-  mounted() {},
+  mounted() {
+    document.getElementById("appLoading").style.display = "none";
+  },
+  beforeDestroy() {
+    document.getElementById("appLoading").style.display = "block";
+  },
   updated() {},
   methods: {
     buyTheMovie(movieDetail) {

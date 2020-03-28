@@ -80,6 +80,9 @@ export default {
       : "已经过期，请重新登录";
     this.timesub(passUsrInfo.time);
   },
+    beforeDestroy() {
+    document.getElementById("appLoading").style.display = "block";
+  },
   methods: {
     timesub(time) {
       let timeSurplus = 603 - (Date.now() - time) / 1000;

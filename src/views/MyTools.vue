@@ -5,10 +5,12 @@
       <div class="WarCon" v-if="isWarn">
         <div class="Warning">
           <div class="warnote">
-            <span class="red"> 警告！</span>
+            <span class="red">警告！</span>
             <div>该页面性能开销较大</div>
           </div>
-          <div><button class="warnBtn" @click="showit()">确定</button></div>
+          <div>
+            <button class="warnBtn" @click="showit()">确定</button>
+          </div>
         </div>
       </div>
       <div v-else class="rightTools">
@@ -150,8 +152,11 @@ export default {
       isWarn: true
     };
   },
-  mounted(){
+  mounted() {
     document.getElementById("appLoading").style.display = "none";
+  },
+  beforeDestroy() {
+    document.getElementById("appLoading").style.display = "block";
   },
   methods: {
     showit() {

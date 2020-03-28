@@ -9,9 +9,22 @@
     </div>
     <form class="mainPage">
       <h2>账号登录</h2>
-      <div class="accAndPass" v-for="(item, index) in items1" :key="index" :class="{ bottom: index === bottom || item.show }">
+      <div
+        class="accAndPass"
+        v-for="(item, index) in items1"
+        :key="index"
+        :class="{ bottom: index === bottom || item.show }"
+      >
         <span ref="spans" :class="{ showup: index === showup || item.show }">{{ item.text }}</span>
-        <input ref="inputGroup" name="inputValue" :type="item.type" @focus="turnUp(index)" @blur="turnOff(index)" v-model="item.value" autocomplete="current-password" />
+        <input
+          ref="inputGroup"
+          name="inputValue"
+          :type="item.type"
+          @focus="turnUp(index)"
+          @blur="turnOff(index)"
+          v-model="item.value"
+          autocomplete="current-password"
+        />
         <div class="err" :class="{ showerr: item.showerr }">{{ item.err }}</div>
         <img :src="showEyes ? openIcon : closeIcon" name="eyes" @click="showPassWord(index)" />
       </div>
@@ -85,8 +98,10 @@ export default {
   mounted() {
     document.getElementById("appLoading").style.display = "none";
   },
-  computed: {
+  beforeDestroy() {
+    document.getElementById("appLoading").style.display = "block";
   },
+  computed: {},
   methods: {
     turnUp(index) {
       this.bottom = index;
@@ -129,9 +144,12 @@ export default {
       this.showcode = false;
     },
     toLogin() {
-      let tem = JSON.parse(localStorage.getItem("usrname")) == null ? [] : JSON.parse(localStorage.getItem("usrname"));
+      let tem =
+        JSON.parse(localStorage.getItem("usrname")) == null
+          ? []
+          : JSON.parse(localStorage.getItem("usrname"));
       let usrInfo = this.items1[0].value;
-      let index = tem.findIndex((x) => x.usrname == usrInfo);
+      let index = tem.findIndex(x => x.usrname == usrInfo);
       if (this.common.phoneNumber(0, this.items1[0].value)) {
         this.items1[0].showerr = false;
         this.items1[0].err = "手机号码有误";
@@ -147,9 +165,12 @@ export default {
             let passUsrInfo = {
               usrname: this.items1[0].value,
               token: "pass",
-              time: Date.now(),
-            }
-            window.localStorage.setItem("passUsrInfo",JSON.stringify(passUsrInfo))
+              time: Date.now()
+            };
+            window.localStorage.setItem(
+              "passUsrInfo",
+              JSON.stringify(passUsrInfo)
+            );
             this.items1[0].showerr = false;
             setTimeout(() => {
               this.$router.push("/center");
@@ -406,7 +427,7 @@ body {
   .register div:nth-child(2) {
     flex: 100%;
   }
-  .err{
+  .err {
     font-size: 2vw;
   }
   .login {

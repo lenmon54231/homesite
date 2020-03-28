@@ -257,6 +257,9 @@ export default {
       bcImg[i].style.backgroundPosition = "0 -" + i * 100 + "px";
     }
   },
+  beforeDestroy(){
+    document.getElementById("appLoading").style.display = "block";
+  },
   methods: {
     isActive(item, index) {
       this.checkindex = index;

@@ -22,8 +22,11 @@ export default {
     Nav,
     Footer
   },
-  mounted(){
+  mounted() {
     document.getElementById("appLoading").style.display = "none";
+  },
+  beforeDestroy() {
+    document.getElementById("appLoading").style.display = "block";
   }
 };
 </script>

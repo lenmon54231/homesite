@@ -1,6 +1,8 @@
 export default {
     path:'/mytools',
     name:'mytools',
-    // component:()=> import('@/views/MyTools.vue')
+    meta: {
+        title: '工具页'
+    },
     component:resolve => require.ensure([], () => resolve(require('@/views/MyTools.vue')), 'mytools'),
 }

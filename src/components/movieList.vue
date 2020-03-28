@@ -274,20 +274,21 @@ export default {
       this.movieGenres = this.formMovieG(movieLists);
       this.genresLoading = false;
       this.allMovie = movieLists;
-      var ul = this.$refs.movieGul; //再获得数据后，ul首部添加一个li（“全部”）
-      var ulfirst = ul.children[0];
-      var li = document.createElement("li");
-      var span = document.createElement("span");
-      var that = this;
-      span.innerText = "全部";
-      li.appendChild(span);
-      ul.insertBefore(li, ulfirst);
-      li.addEventListener("click", that.toAll);
     });
-    this.common.toTop(0);
   },
   mounted() {
     document.getElementById("appLoading").style.display = "none";
+    this.common.toTop(0);
+    let ul = this.$refs.movieGul; //再获得数据后，ul首部添加一个li（“全部”）
+    let ulfirst = ul.children[0];
+    let li = document.createElement("li");
+    let span = document.createElement("span");
+    span.innerText = "全部";
+    li.appendChild(span);
+    ul.insertBefore(li, ulfirst);
+    li.addEventListener("click", () => {
+      this.toAll;
+    });
   },
   activated() {
     // 默认跳转到之前浏览的位置
