@@ -8,6 +8,7 @@ import RegisterRouter from './Register'
 import ResumeRouter from './Resume'
 import CenterRouter from './Center'
 import LoadingRouter from './Loading'
+import ACPRouter from './Acp'
 
 Vue.use(VueRouter)
 export default new VueRouter({
@@ -22,9 +23,10 @@ export default new VueRouter({
     ResumeRouter,
     CenterRouter,
     LoadingRouter,
+    ACPRouter,
     {
       path: '/*',
-      redirect: '/home'
+      redirect: '/mall'
     }
   ]
 })

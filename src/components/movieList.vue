@@ -174,12 +174,12 @@ function scrollMouse(event) {
   event.preventDefault();
   let delta = getWheelDelta(event);
   let locationNow = document.documentElement.scrollTop;
-  // delta < 0，鼠标往前滚动，页面向下滚动
   if (delta < 0) {
     goDown(locationNow);
   } else {
     goUp(locationNow);
   }
+  console.log("鼠标滚动开始")
 }
 function goDown(locationNow) {
   window.scrollTo(0, locationNow + 80);
@@ -511,7 +511,6 @@ export default {
     navScroll() {
       var h = this.$refs.carousel.offsetHeight;
       this.scrollPosition = document.documentElement.scrollTop;
-      console.log(this.scrollPosition, h);
       var offtop = h - 50;
       if (document.body.clientWidth > 972) {
         if (this.scrollPosition > offtop) {

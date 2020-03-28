@@ -1,7 +1,7 @@
 export default {
     path: '/mall',
     meta: {
-        title: '电影页'
+        title: '乐檬电影网'
     },
     component: resolve => require.ensure([], () => resolve(require('@/views/Mall.vue')), 'mall'),
     children: [
@@ -16,7 +16,7 @@ export default {
             path: 'movieList',
             name: 'movieList',
             meta: {
-                title: '电影页'
+                title: '乐檬电影网'
             },
             component: () => import('@/components/movieList.vue'),
         },

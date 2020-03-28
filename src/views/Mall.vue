@@ -55,6 +55,7 @@ main {
 .nav {
   left: 0 !important;
   width: 100%;
+  opacity: 0.5;
 }
 
 /* carousel */

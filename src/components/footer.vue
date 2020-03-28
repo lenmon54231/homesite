@@ -2,9 +2,13 @@
   <div class="footer">
     <div class="container">
       <div class="row footerList">
-        <div class="col-md-3">CALL ME. 0800-123-456</div>
-        <div class="col-md-3">E-mail:limeng54231@163.com</div>
         <div class="col-md-3">QQ:894563328</div>
+        <div class="col-md-3">E-mail:limeng54231@163.com</div>
+        <div class="col-md-3">
+          <div style="cursor: pointer">
+            <router-link tag="div" to="/acp">ACP证书</router-link>
+          </div>
+        </div>
         <div class="col-md-3">
           <div style="cursor: pointer">
             <router-link tag="div" to="/resume">在线简历</router-link>

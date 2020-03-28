@@ -3,17 +3,17 @@
     <div class="container">
       <div class="row navbar">
         <div class="col-xs-3 navbarLeft">
-          <router-link tag="a" to="/home">Home</router-link>
-          <router-link tag="a" to="/mall">Movie</router-link>
-          <router-link tag="a" to="/mytools">CSS3</router-link>
+          <router-link tag="a" to="/home">导航</router-link>
+          <router-link tag="a" to="/mall">乐檬电影</router-link>
+          <router-link tag="a" to="/mytools">工具</router-link>
         </div>
         <div v-if="showRegLogin" class="col-xs-2 col-xs-offset-7 navbarRight">
-          <router-link tag="a" to="/login">Login</router-link>
-          <router-link tag="a" to="/register">Register</router-link>
+          <router-link tag="a" to="/login">登录</router-link>
+          <router-link tag="a" to="/register">注册</router-link>
         </div>
         <div v-else class="col-xs-2 col-xs-offset-7 navbarRight">
-          <router-link tag="a" to="/center">Center</router-link>
-          <router-link tag="a" to="/register">Register</router-link>
+          <router-link tag="a" to="/center">个人中心</router-link>
+          <router-link tag="a" to="/register">注册</router-link>
         </div>
       </div>
     </div>
