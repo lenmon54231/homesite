@@ -325,14 +325,14 @@
             </div>
             <div class="mainMovie" v-else>
               <ul class="row sigleMovieList">
-                <li v-for="(item, index) in items" :key="index" class="col-md-4 col-sm-4 col-xs-6">
+                <li v-for="(item, index) in items" :key="index" class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
                   <div class="sigleMovie">
                     <div>
                       <img class="movieImg" :src="item.images.small" @click="handToDetail(item.id)" />
                     </div>
                     <span class="movieCategory">{{ item.genres[0] }}</span>
                     <div class="movieName">
-                      <span>{{ item.title }}</span>
+                      <span>{{ item.title | title}}</span>
                       <div class="like">{{ item.rating.average }}分</div>
                     </div>
                     <div class="price">价格：{{ item.collect_count | price }}元/10年</div>
@@ -611,8 +611,8 @@ export default {
       return value.slice(0, 10);
     },
     title: function(value) {
-      if (value.length > 9) {
-        return value.slice(0, 9).concat("......");
+      if (value.length > 6) {
+        return value.slice(0, 6).concat("......");
       } else {
         return value;
       }
@@ -1293,13 +1293,13 @@ export default {
   border-bottom: grey 1px solid;
 }
 .sigleMovie {
-  width: 270px;
+  width: 190px;
   background-color: #343a40 !important;
   color: #ffffff;
 }
 .sigleMovie > div:nth-child(1) {
   overflow: hidden;
-  height: 400px;
+  height: 300px;
   position: relative;
 }
 .movieCategory {
@@ -1389,7 +1389,7 @@ export default {
     width: 66.66666667%;
   }
   .mainMovie > ul > li {
-    width: 25%;
+    width: 16.6666667%;
   }
 }
 /* 小于1700px */
