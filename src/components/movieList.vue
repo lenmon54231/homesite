@@ -1,14 +1,180 @@
 <template>
   <div>
-    <div class="searchBar">
-      <input
-        ref="searchMovie"
-        id="searchMovie"
-        type="text"
-        placeholder="请稍等，获取数据中....."
-        disabled="disabled"
-        @input="doSearch"
-      />
+    <div class="searchAndVIP">
+      <div class="searchBar">
+        <input
+          ref="searchMovie"
+          id="searchMovie"
+          type="text"
+          placeholder="请稍等，获取数据中....."
+          disabled="disabled"
+          @input="doSearch"
+        />
+      </div>
+      <div class="vip">
+        <div>
+          <svg
+            style="cursor: pointer;"
+            t="1585569624630"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="3694"
+            width="26"
+            height="26"
+          >
+            <path
+              d="M311.114667 371.242667L471.146667 169.098667a52.106667 52.106667 0 0 1 81.706666 0l160.032 202.144 153.152-65.632a52.106667 52.106667 0 0 1 71.541334 58.474666l-89.44 430.933334a112.416 112.416 0 0 1-110.08 89.568H285.941333a112.416 112.416 0 0 1-110.08-89.568l-89.429333-430.933334a52.106667 52.106667 0 0 1 71.541333-58.474666l153.152 65.632zM512 220.608L355.648 418.101333a52.106667 52.106667 0 0 1-61.376 15.552l-140.544-60.234666 84.8 408.586666a48.416 48.416 0 0 0 47.402667 38.581334h452.138666a48.416 48.416 0 0 0 47.402667-38.581334l84.8-408.586666-140.544 60.234666a52.106667 52.106667 0 0 1-61.376-15.552L512 220.608z"
+              p-id="3695"
+              fill="#f7c3a7"
+            />
+          </svg>
+          <span style="cursor: pointer;">开通会员</span>
+          <div class="getVIP">
+            <div class="vipTextCon">
+              <div>
+                <span>
+                  <svg
+                    t="1585573623146"
+                    class="icon"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="5709"
+                    width="20"
+                    height="20"
+                  >
+                    <path
+                      d="M1024 73.955556h-364.088889l-364.088889 426.666666v-426.666666h-295.822222v73.955555h73.955556v807.822222h221.866666l728.177778-881.777777z"
+                      p-id="5710"
+                      fill="#f7c3a7"
+                    />
+                  </svg>
+                </span> 会员精选内容
+              </div>
+              <div>
+                <span>
+                  <svg
+                    t="1585573665477"
+                    class="icon"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="5988"
+                    width="20"
+                    height="20"
+                  >
+                    <path
+                      d="M779.6 723.6H244.2c-9 0-16.8-6-19.3-14.6l-96-343.1c-2.2-7.8 0.6-16.2 7-21.2s15.3-5.6 22.3-1.5l167.1 97.4 176.3-229.5c3.9-5.1 10-8 16.4-7.8 6.4 0.2 12.3 3.4 16 8.6l154.5 223.7 148.4-101.9c6.7-4.6 15.5-4.7 22.3-0.2 6.8 4.5 10.2 12.6 8.7 20.5l-68.6 353.3c-1.8 9.5-10.1 16.3-19.7 16.3z m-520.2-40h503.8l56.1-289.2L694.7 480c-9.1 6.2-21.5 4-27.8-5.1L516.6 257.4 346.3 479c-6.1 8-17.2 10.2-25.9 5.1l-139.6-81.4 78.6 280.9zM916.1 832.7h-800c-11 0-20-9-20-20s9-20 20-20h800c11 0 20 9 20 20s-9 20-20 20z"
+                      fill="#f7c3a7"
+                      p-id="5989"
+                    />
+                    <path
+                      d="M117 318m-40 0a40 40 0 1 0 80 0 40 40 0 1 0-80 0Z"
+                      fill="#f7c3a7"
+                      p-id="5990"
+                    />
+                    <path
+                      d="M517 168.2m-40 0a40 40 0 1 0 80 0 40 40 0 1 0-80 0Z"
+                      fill="#f7c3a7"
+                      p-id="5991"
+                    />
+                    <path
+                      d="M878.3 306.5m-40 0a40 40 0 1 0 80 0 40 40 0 1 0-80 0Z"
+                      fill="#f7c3a7"
+                      p-id="5992"
+                    />
+                  </svg>
+                </span> 了解会员特权
+              </div>
+              <div>
+                <span>
+                  <svg
+                    t="1585573702403"
+                    class="icon"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="6222"
+                    width="20"
+                    height="20"
+                  >
+                    <path
+                      d="M1018.61333 397.1L788.31333 84.8c-5.2-7.1-13.5-11.2-22.3-11.2l-513 3.7c-8.8 0.1-17 4.3-22.1 11.5L5.11333 404.4c-7.7 10.8-6.6 25.6 2.6 35.1L496.01333 942.1c5.2 5.3 12.3 8.3 19.7 8.3h0.2c7.5-0.1 14.6-3.2 19.8-8.6l480.8-509.5c9.1-9.7 10-24.5 2.1-35.2z m-715.3 46.5l139.4 364.8-353-363.3 213.6-1.5z m292.8-313.8L667.31333 386l-310.9 2.3 68-257.3 171.7-1.2zM662.21333 441L514.71333 842.8 362.01333 443.2l300.2-2.2z m58.6-0.4l213.8-1.5-348.9 369.6 135.1-368.1zM940.71333 384l-216.5 1.6L653.01333 129.3l99.4-0.7L940.71333 384zM267.41333 132.1l100-0.7-68 257.3-216.6 1.6 184.6-258.2z"
+                      fill="#f7c3a7"
+                      p-id="6223"
+                    />
+                  </svg>
+                </span> 了解会员套餐
+              </div>
+              <div class="vipLogin">
+                <div>登录</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <svg
+            style="cursor: pointer;"
+            t="1585569871435"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="3976"
+            width="26"
+            height="26"
+          >
+            <path
+              d="M790.976 190.72a32 32 0 0 1 45.258667-0.021333A457.248 457.248 0 0 1 970.666667 515.114667a457.248 457.248 0 0 1-134.293334 324.277333 32 32 0 1 1-45.258666-45.248A393.258667 393.258667 0 0 0 906.666667 515.114667a393.258667 393.258667 0 0 0-115.68-279.146667 32 32 0 0 1 0-45.258667z m-603.36 0.128a32 32 0 0 1 45.269333 45.248A393.258667 393.258667 0 0 0 117.333333 515.114667a393.258667 393.258667 0 0 0 115.466667 278.944 32 32 0 0 1-45.28 45.237333A457.248 457.248 0 0 1 53.333333 515.114667a457.248 457.248 0 0 1 134.293334-324.266667zM330.794667 285.866667a32 32 0 0 1 0.032 45.248A255.04 255.04 0 0 0 256 512a255.050667 255.050667 0 0 0 75.146667 181.184 32 32 0 1 1-45.216 45.301333A319.04 319.04 0 0 1 192 512a319.04 319.04 0 0 1 93.546667-226.090667 32 32 0 0 1 45.248-0.032z m407.36-0.266667A319.04 319.04 0 0 1 832 512a319.04 319.04 0 0 1-93.653333 226.208 32 32 0 0 1-45.28-45.237333A255.050667 255.050667 0 0 0 768 512a255.050667 255.050667 0 0 0-75.072-181.12 32 32 0 1 1 45.226667-45.269333zM566.752 384C637.408 384 682.666667 441.173333 682.666667 514.922667c0 58.005333-47.946667 116.789333-140.096 181.237333a53.333333 53.333333 0 0 1-61.141334 0C389.28 631.712 341.333333 572.928 341.333333 514.922667 341.333333 441.173333 386.592 384 457.258667 384c21.632 0 37.514667 5.994667 54.741333 18.421333C529.226667 389.994667 545.109333 384 566.741333 384z m0 64c-8.32 0-14.56 3.328-27.52 14.538667l-6.336 5.504a32 32 0 0 1-41.770667 0l-6.336-5.504c-12.96-11.2-19.2-14.538667-27.52-14.538667C425.653333 448 405.333333 473.674667 405.333333 514.922667c0 29.941333 34.410667 72.938667 106.666667 124.48 72.256-51.541333 106.666667-94.538667 106.666667-124.48C618.666667 473.674667 598.346667 448 566.741333 448z"
+              p-id="3977"
+              fill="#bfbfbf"
+            />
+          </svg>
+          <span style="cursor: pointer;">关注</span>
+        </div>
+        <div>
+          <svg
+            style="cursor: pointer;"
+            t="1585570017282"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="4306"
+            width="26"
+            height="26"
+          >
+            <path
+              d="M507.136 514.944c3.072-4.362667 7.210667-7.925333 12.032-10.314667a37.365333 37.365333 0 0 1 46.634667 6.144l97.418666 102.794667a32 32 0 0 1-46.442666 44.021333L565.333333 603.317333V853.333333a32 32 0 1 1-64 0V608.757333l-52.618666 50.016a32 32 0 0 1-44.096-46.4l102.517333-97.429333zM512 138.666667c123.018667 0 228.213333 85.696 259.424 204.469333C864.298667 344.736 938.666667 422.752 938.666667 518.218667 938.666667 614.688 862.752 693.333333 768.533333 693.333333a32 32 0 0 1 0-64C826.890667 629.333333 874.666667 579.84 874.666667 518.218667c0-61.610667-47.776-111.104-106.133334-111.104-5.856 0-11.626667 0.490667-17.301333 1.461333a32 32 0 0 1-37.024-26.666667C698.346667 279.04 612.714667 202.666667 512 202.666667c-73.834667 0-140.928 41.066667-177.376 106.613333a32 32 0 0 1-30.122667 16.373333c-3.168-0.213333-6.357333-0.32-9.568-0.32C214.784 325.333333 149.333333 393.141333 149.333333 477.333333S214.784 629.333333 294.933333 629.333333a32 32 0 1 1 0 64C178.912 693.333333 85.333333 596.373333 85.333333 477.333333c0-116.938667 90.293333-212.554667 203.456-215.904C338.090667 185.696 421.013333 138.666667 512 138.666667z"
+              p-id="4307"
+              fill="#bfbfbf"
+            />
+          </svg>
+          <span style="cursor: pointer;">上传</span>
+        </div>
+        <div>
+          <svg
+            style="cursor: pointer;"
+            t="1585570297218"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="3694"
+            width="26"
+            height="26"
+          >
+            <path
+              d="M256 85.333333h512c64.8 0 117.333333 52.533333 117.333333 117.333334v618.666666c0 64.8-52.533333 117.333333-117.333333 117.333334H256c-64.8 0-117.333333-52.533333-117.333333-117.333334V202.666667c0-64.8 52.533333-117.333333 117.333333-117.333334z m0 64a53.333333 53.333333 0 0 0-53.333333 53.333334v618.666666a53.333333 53.333333 0 0 0 53.333333 53.333334h512a53.333333 53.333333 0 0 0 53.333333-53.333334V202.666667a53.333333 53.333333 0 0 0-53.333333-53.333334H256z m170.666667 618.666667a32 32 0 0 1 0-64h170.666666a32 32 0 0 1 0 64H426.666667z"
+              p-id="3695"
+              fill="#bfbfbf"
+            />
+          </svg>
+          <span style="cursor: pointer;">客户端</span>
+        </div>
+      </div>
     </div>
     <div class="row carousel" ref="carousel">
       <ul class="linkToIndex">
@@ -250,7 +416,7 @@ function goUp(locationNow) {
 }
 // 鼠标滚动逻辑（全屏滚动关键逻辑）
 function scrollMouse(event) {
-  console.log("滚轮事件监控开始")
+  console.log("滚轮事件监控开始");
   event.preventDefault();
   let delta = getWheelDelta(event);
   let locationNow = document.documentElement.scrollTop;
@@ -264,7 +430,7 @@ function scrollMouse(event) {
 if (navigator.userAgent.toLowerCase().indexOf("firefox") === -1) {
   document.addEventListener("mousewheel", scrollMouse, { passive: false });
 } else {
-  document.addEventListener("DOMMouseScroll", scrollMouse,{ passive: false });
+  document.addEventListener("DOMMouseScroll", scrollMouse, { passive: false });
 }
 
 export default {
@@ -334,7 +500,7 @@ export default {
       //顶部nav变色
       navcolor: false,
       //跳转顶部高度
-      toTopHight:""
+      toTopHight: ""
     };
   },
   created() {
@@ -343,7 +509,9 @@ export default {
       .get("/v2/movie/new_movies")
       .then(res => {
         if (res.status == 200) {
-          this.lastMovie = res.data.subjects?res.data.subjects.splice(0, 8):false;
+          this.lastMovie = res.data.subjects
+            ? res.data.subjects.splice(0, 8)
+            : false;
         }
       })
       .catch(err => {
@@ -354,7 +522,9 @@ export default {
       .get("/v2/movie/coming_soon")
       .then(res1 => {
         if (res1.status == 200) {
-          this.newMovie = res1.data.subjects?res1.data.subjects.splice(0, 8):false;
+          this.newMovie = res1.data.subjects
+            ? res1.data.subjects.splice(0, 8)
+            : false;
         }
       })
       .catch(err => {
@@ -365,7 +535,9 @@ export default {
       .get("/v2/movie/us_box")
       .then(res2 => {
         if (res2.status == 200) {
-          this.weeklyMovie = res2.data.subjects?res2.data.subjects.splice(0, 8):false
+          this.weeklyMovie = res2.data.subjects
+            ? res2.data.subjects.splice(0, 8)
+            : false;
         }
       })
       .catch(err => {
@@ -432,8 +604,7 @@ export default {
     clearInterval(carouselTimer);
     carouselTimer = null;
   },
-  computed: {
-  },
+  computed: {},
   watch: {},
   filters: {
     pubdates: function(value) {
@@ -476,7 +647,7 @@ export default {
     //跳转到顶部的封装函数(针对屏幕大小跳转)
     linkToTop() {
       if (this.width > 1700) {
-        let tem = this.toTopHight - 40
+        let tem = this.toTopHight - 40;
         this.common.toTop(tem);
       } else if (1700 >= this.width && this.width > 1200) {
         this.common.toTop(430);
@@ -993,20 +1164,27 @@ export default {
   text-align: center;
   line-height: 100vh;
 }
-.searchBar {
-  width: 33.33333vw;
+.searchAndVIP {
+  width: 40vw;
   height: 40px;
   position: fixed;
   left: 50%;
   top: 5px;
   transform: translateX(-50%);
   z-index: 9999;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-betweenf;
+  align-items: center;
+}
+.searchBar {
+  flex: 0 1 50%;
+  height: 40px;
   background-color: hsla(0, 0%, 100%, 0.1);
   border-radius: 28px;
 }
 .searchBar > input {
-  z-index: 9999;
-  width: 80%;
+  width: 100%;
   height: 40px;
   line-height: 40px;
   border-radius: 8px 0 0 8px;
@@ -1035,6 +1213,78 @@ export default {
 }
 .searchBar > button {
   border-top: 1px solid;
+}
+.vip {
+  flex: 1 1 50%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.vip > div {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.vip > div:hover > .getVIP {
+  display: block;
+}
+.vip > div > span {
+  color: white !important;
+}
+.getVIP {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  transform: translateX(-25%);
+  display: none;
+  width: 180px;
+}
+.littleTriangle {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-image: url(../assets/show_less.png);
+  background-size: 20px auto;
+  color: #2a2a2a;
+}
+.vipTextCon {
+  height: 180px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  color: #fff;
+  background-color: #2a2a2a;
+  border-radius: 18px;
+}
+.vipTextCon > div {
+  flex: 1;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.vipTextCon > div:hover {
+  color: #f7c3a7;
+}
+.vipTextCon .vipLogin {
+  width: 60%;
+}
+.vipTextCon .vipLogin > div {
+  width: 100%;
+  height: 26px !important;
+  line-height: 26px;
+  border-radius: 8px;
+  background-color: #f7c3a7;
+  color: #1b1e21;
+  text-align: center;
+  cursor: pointer;
+}
+.vipTextCon .vipLogin > div:hover {
+  color: black;
+  background-color: #f0cbb7;
 }
 .mainMovie ul li {
   padding: 15px;
