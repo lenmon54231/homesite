@@ -85,7 +85,7 @@
           <div>
             <ul class="movieUl">
               <li v-for="(item,index) in weeklyMovie">
-                <div @click="handToDetail(item.id)" class="generalMovieIMgCon">
+                <div @click="handToDetail(item.subject.id)" class="generalMovieIMgCon">
                   <img class="generalMovieIMg" :src="item.subject.images.medium" alt="剧照" />
                 </div>
                 <div style="fontSize:16px" class="movieTitle">{{item.subject.title | title}}</div>
@@ -112,7 +112,7 @@
                 <div v-if="genresLoading">
                   <!-- <li @click="toAll">
                     <span>全部</span>
-                  </li> -->
+                  </li>-->
                   <li>
                     <span>犯罪</span>
                   </li>
@@ -190,6 +190,7 @@
       </div>
       <Shop :number="allMovie.length" @sendToFather="getChild"></Shop>
       <mini></mini>
+      <Top></Top>
     </div>
   </div>
 </template>
@@ -197,7 +198,7 @@
 <script>
 import Shop from "@/components/shoppingCar.vue";
 import mini from "@/components/minipro.vue";
-
+import Top from "@/components/top.vue";
 //防抖函数
 function debounce(fn, delay = 2000) {
   //可以放入项目中的公共方法中进行调用（鹅只是省事）
@@ -237,8 +238,19 @@ function getWheelDelta(event) {
     return -event.detail;
   }
 }
+function goDown(locationNow) {
+  window.scrollTo(0, locationNow + 40);
+}
+function goUp(locationNow) {
+  if (locationNow > 40) {
+    window.scrollTo(0, locationNow - 40);
+  } else {
+    window.scrollTo(0, 0);
+  }
+}
 // 鼠标滚动逻辑（全屏滚动关键逻辑）
 function scrollMouse(event) {
+  console.log("滚轮事件监控开始")
   event.preventDefault();
   let delta = getWheelDelta(event);
   let locationNow = document.documentElement.scrollTop;
@@ -248,28 +260,19 @@ function scrollMouse(event) {
     goUp(locationNow);
   }
 }
-function goDown(locationNow) {
-  window.scrollTo(0, locationNow + 80);
-}
-function goUp(locationNow) {
-  if (locationNow > 80) {
-    window.scrollTo(0, locationNow - 80);
-  } else {
-    window.scrollTo(0, 0);
-  }
-}
 // 鼠标滚轮监听，火狐鼠标滚动事件不同其他
 if (navigator.userAgent.toLowerCase().indexOf("firefox") === -1) {
   document.addEventListener("mousewheel", scrollMouse, { passive: false });
 } else {
-  document.addEventListener("DOMMouseScroll", scrollMouse);
+  document.addEventListener("DOMMouseScroll", scrollMouse,{ passive: false });
 }
 
 export default {
   name: "movieLists",
   components: {
     Shop,
-    mini
+    mini,
+    Top
   },
   data() {
     return {
@@ -335,12 +338,12 @@ export default {
     };
   },
   created() {
-    //获取最新电影
+    //获取最新电影?apikey=0df993c66c0c636e29ecbb5344252a4a
     this.axios
-      .get("/v2/movie/new_movies?apikey=0df993c66c0c636e29ecbb5344252a4a")
+      .get("/v2/movie/new_movies")
       .then(res => {
         if (res.status == 200) {
-          this.lastMovie = res.data.subjects.splice(0, 8);
+          this.lastMovie = res.data.subjects?res.data.subjects.splice(0, 8):false;
         }
       })
       .catch(err => {
@@ -349,39 +352,39 @@ export default {
     //获取即将上映电影
     this.axios
       .get("/v2/movie/coming_soon")
-      .then(res => {
-        if (res.status == 200) {
-          this.newMovie = res.data.subjects.splice(0, 8);
+      .then(res1 => {
+        if (res1.status == 200) {
+          this.newMovie = res1.data.subjects?res1.data.subjects.splice(0, 8):false;
         }
       })
       .catch(err => {
         this.newMovie = false;
       });
-    //获取口碑电影
+    //获取口碑电影?apikey=0df993c66c0c636e29ecbb5344252a4a
     this.axios
-      .get("/v2/movie/weekly?apikey=0df993c66c0c636e29ecbb5344252a4a")
-      .then(res => {
-        if (res.status == 200) {
-          this.weeklyMovie = res.data.subjects.splice(0, 8);
+      .get("/v2/movie/us_box")
+      .then(res2 => {
+        if (res2.status == 200) {
+          this.weeklyMovie = res2.data.subjects?res2.data.subjects.splice(0, 8):false
         }
       })
       .catch(err => {
         this.weeklyMovie = false;
       });
     // 获取top250前12部电影列表
-    this.axios.get("/v2/movie/top250?start=0&count=12").then(res => {
-      if (res.status == 200) {
-        this.items = res.data.subjects;
-        this.firstPMovie = res.data.subjects;
+    this.axios.get("/v2/movie/top250?start=0&count=12").then(res3 => {
+      if (res3.status == 200) {
+        this.items = res3.data.subjects;
+        this.firstPMovie = res3.data.subjects;
         this.isLoading = false;
         this.createLiLists(8);
         this.inputOk();
       }
     });
     // 获取top250前90部电影列表
-    this.axios.get("/v2/movie/top250?start=0&count=90").then(res => {
-      if (res.status == 200) {
-        var movieLists = res.data.subjects;
+    this.axios.get("/v2/movie/top250?start=0&count=90").then(res4 => {
+      if (res4.status == 200) {
+        var movieLists = res4.data.subjects;
       }
       this.movieGenres = this.formMovieG(movieLists);
       this.genresLoading = false;
@@ -648,6 +651,7 @@ export default {
       let h = h1 + h2 + h3 + h4 + h5;
       this.toTopHight = h;
       this.scrollPosition = document.documentElement.scrollTop;
+      // console.log(this.scrollPosition)
       var offtop = h - 50;
       if (document.body.clientWidth > 972) {
         if (this.scrollPosition > offtop) {
