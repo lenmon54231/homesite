@@ -35,7 +35,7 @@
       <div class="register">
         <div>
           返回:
-          <router-link tag="a" to="/home" class="homeLink">主页</router-link>
+          <router-link tag="a" to="/mall" class="homeLink">主页</router-link>
         </div>
         <div>
           没有账号？

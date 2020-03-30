@@ -1,5 +1,15 @@
 <template>
   <div>
+    <div class="searchBar">
+      <input
+        ref="searchMovie"
+        id="searchMovie"
+        type="text"
+        placeholder="请稍等，获取数据中....."
+        disabled="disabled"
+        @input="doSearch"
+      />
+    </div>
     <div class="row carousel" ref="carousel">
       <ul class="linkToIndex">
         <li
@@ -23,6 +33,76 @@
       <div class="toright" @click="toRight()"></div>
     </div>
     <div class="container">
+      <div ref="lastMovie" v-if="lastMovie" class="row">
+        <div class="col-lg-10 col-lg-offset-1 lastMovie">
+          <div class="generalMovieTitle">
+            <span style="fontSize: 26px">最新电影</span>
+            <span>热播榜</span>
+            <span>新片榜</span>
+            <span>高分榜</span>
+            <span>免费榜</span>
+            <span>网大榜</span>
+            <span>预告榜</span>
+            <span>戏剧榜</span>
+            <span>动作榜</span>
+          </div>
+          <div>
+            <ul class="movieUl">
+              <li v-for="(item,index) in lastMovie">
+                <div @click="handToDetail(item.id)" class="generalMovieIMgCon">
+                  <img class="generalMovieIMg" :src="item.images.medium" alt="剧照" />
+                </div>
+                <div style="fontSize:16px" class="movieTitle">{{item.title | title}}</div>
+                <div class="pubdates">首映时间:{{item.pubdates[0] | pubdates}}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div v-if="newMovie" class="row">
+        <div ref="newMovie" class="col-lg-10 col-lg-offset-1 newMovie">
+          <div class="generalMovieTitle">
+            <span style="fontSize: 26px">即将上映</span>
+          </div>
+          <div>
+            <ul class="movieUl">
+              <li v-for="(item,index) in newMovie">
+                <div @click="handToDetail(item.id)" class="generalMovieIMgCon">
+                  <img class="generalMovieIMg" :src="item.images.medium" alt="剧照" />
+                </div>
+                <div style="fontSize:16px" class="movieTitle">{{item.title | title}}</div>
+                <div class="pubdates">首映时间:{{item.pubdates[0] | pubdates}}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div ref="weeklyMovie" v-if="weeklyMovie" class="row">
+        <div class="col-lg-10 col-lg-offset-1 weeklyMovie">
+          <div class="generalMovieTitle">
+            <span style="fontSize: 26px">口碑电影</span>
+          </div>
+          <div>
+            <ul class="movieUl">
+              <li v-for="(item,index) in weeklyMovie">
+                <div @click="handToDetail(item.id)" class="generalMovieIMgCon">
+                  <img class="generalMovieIMg" :src="item.subject.images.medium" alt="剧照" />
+                </div>
+                <div style="fontSize:16px" class="movieTitle">{{item.subject.title | title}}</div>
+                <div class="pubdates">首映时间:{{item.subject.pubdates[0] | pubdates}}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div ref="rentMovie" class="col-lg-10 col-lg-offset-1 rentMovie">
+          <div class="rentMovieTitle">
+            <span style="fontSize: 26px">版权租用专区</span>
+            <span class="rentText">在这里，你可以查看到全球评分最高的90部上映电影，并且可以通过租用的方式去获取版权，快去选购你中意的电影吧！</span>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-sm-12">
           <div class="col-md-2 allTag">
@@ -30,9 +110,9 @@
               <h3>TOP90分类</h3>
               <ul ref="movieGul">
                 <div v-if="genresLoading">
-                  <li @click="toAll">
+                  <!-- <li @click="toAll">
                     <span>全部</span>
-                  </li>
+                  </li> -->
                   <li>
                     <span>犯罪</span>
                   </li>
@@ -74,18 +154,6 @@
             </div>
           </div>
           <div class="col-md-10 allMovie">
-            <div class="searchBar">
-              <div>搜索电影</div>
-              <input
-                ref="searchMovie"
-                id="searchMovie"
-                type="text"
-                placeholder="请稍等，获取数据中....."
-                disabled="disabled"
-                @input="doSearch"
-              />
-              <button @click="cleanValue">×</button>
-            </div>
             <div class="mainLoading" v-if="isLoading">
               <h2 class="mainLoadingTitle">{{ loadingIntext }}</h2>
             </div>
@@ -179,7 +247,6 @@ function scrollMouse(event) {
   } else {
     goUp(locationNow);
   }
-  console.log("鼠标滚动开始")
 }
 function goDown(locationNow) {
   window.scrollTo(0, locationNow + 80);
@@ -228,6 +295,7 @@ export default {
           bc: "rgb(0, 0, 0)"
         }
       ],
+      //轮播图
       currentIndex: "0",
       showLight: false,
       timer: "0",
@@ -244,6 +312,12 @@ export default {
       allMovie: [],
       // 全部电影中的第一页电影
       firstPMovie: [],
+      //最新电影
+      lastMovie: false,
+      //即将上映电影
+      newMovie: false,
+      //口碑电影
+      weeklyMovie: false,
       // 下方li的个数
       liIndexList: "",
       //当前第几个li
@@ -253,11 +327,48 @@ export default {
       //现在滚动位置
       scrollPosition: 0,
       //屏幕的宽度
-      width: window.innerWidth
+      width: window.innerWidth,
+      //顶部nav变色
+      navcolor: false,
+      //跳转顶部高度
+      toTopHight:""
     };
   },
   created() {
-    // 获取电影列表
+    //获取最新电影
+    this.axios
+      .get("/v2/movie/new_movies?apikey=0df993c66c0c636e29ecbb5344252a4a")
+      .then(res => {
+        if (res.status == 200) {
+          this.lastMovie = res.data.subjects.splice(0, 8);
+        }
+      })
+      .catch(err => {
+        this.lastMovie = false;
+      });
+    //获取即将上映电影
+    this.axios
+      .get("/v2/movie/coming_soon")
+      .then(res => {
+        if (res.status == 200) {
+          this.newMovie = res.data.subjects.splice(0, 8);
+        }
+      })
+      .catch(err => {
+        this.newMovie = false;
+      });
+    //获取口碑电影
+    this.axios
+      .get("/v2/movie/weekly?apikey=0df993c66c0c636e29ecbb5344252a4a")
+      .then(res => {
+        if (res.status == 200) {
+          this.weeklyMovie = res.data.subjects.splice(0, 8);
+        }
+      })
+      .catch(err => {
+        this.weeklyMovie = false;
+      });
+    // 获取top250前12部电影列表
     this.axios.get("/v2/movie/top250?start=0&count=12").then(res => {
       if (res.status == 200) {
         this.items = res.data.subjects;
@@ -267,6 +378,7 @@ export default {
         this.inputOk();
       }
     });
+    // 获取top250前90部电影列表
     this.axios.get("/v2/movie/top250?start=0&count=90").then(res => {
       if (res.status == 200) {
         var movieLists = res.data.subjects;
@@ -287,10 +399,11 @@ export default {
     li.appendChild(span);
     ul.insertBefore(li, ulfirst);
     li.addEventListener("click", () => {
-      this.toAll;
+      this.toAll();
     });
   },
   activated() {
+    document.getElementById("appLoading").style.display = "none";
     // 默认跳转到之前浏览的位置
     this.scrollPosition = this.$store.state.scrollPosition;
     this.common.toTop(this.scrollPosition);
@@ -306,14 +419,31 @@ export default {
     if (this.width > 990) {
       window.addEventListener("scroll", this.navScroll);
     }
+    //顶部nav变色
+    window.addEventListener("scroll", this.judgeNavColor);
   },
   updated() {},
   deactivated() {
     window.removeEventListener("scroll", this.navScroll);
+    window.removeEventListener("scroll", this.judgeNavColor);
     clearInterval(carouselTimer);
     carouselTimer = null;
   },
-  filters: {},
+  computed: {
+  },
+  watch: {},
+  filters: {
+    pubdates: function(value) {
+      return value.slice(0, 10);
+    },
+    title: function(value) {
+      if (value.length > 9) {
+        return value.slice(0, 9).concat("......");
+      } else {
+        return value;
+      }
+    }
+  },
   methods: {
     //测试子组件向父组件传值
     getChild(data) {
@@ -343,7 +473,8 @@ export default {
     //跳转到顶部的封装函数(针对屏幕大小跳转)
     linkToTop() {
       if (this.width > 1700) {
-        this.common.toTop(590);
+        let tem = this.toTopHight - 40
+        this.common.toTop(tem);
       } else if (1700 >= this.width && this.width > 1200) {
         this.common.toTop(430);
       } else if (1200 >= this.width && this.width > 990) {
@@ -494,7 +625,7 @@ export default {
       var inputOk = this.$refs.searchMovie;
       const inputOut = setInterval(() => {
         if (this.allMovie.length == 90) {
-          inputOk.setAttribute("placeholder", "请输入......");
+          inputOk.setAttribute("placeholder", "请输入电影名称搜索......");
           inputOk.disabled = "";
           clearInterval(inputOut);
         }
@@ -509,7 +640,13 @@ export default {
     },
     //侧边栏随动
     navScroll() {
-      var h = this.$refs.carousel.offsetHeight;
+      let h1 = this.$refs.carousel ? this.$refs.carousel.offsetHeight : 0;
+      let h2 = this.$refs.lastMovie ? this.$refs.lastMovie.offsetHeight : 0;
+      let h3 = this.$refs.newMovie ? this.$refs.newMovie.offsetHeight : 0;
+      let h4 = this.$refs.weeklyMovie ? this.$refs.weeklyMovie.offsetHeight : 0;
+      let h5 = this.$refs.rentMovie ? this.$refs.rentMovie.offsetHeight : 0;
+      let h = h1 + h2 + h3 + h4 + h5;
+      this.toTopHight = h;
       this.scrollPosition = document.documentElement.scrollTop;
       var offtop = h - 50;
       if (document.body.clientWidth > 972) {
@@ -520,6 +657,11 @@ export default {
         }
       }
       this.$store.commit("setScrollPosition", this.scrollPosition);
+    },
+    //topNav变色
+    judgeNavColor() {
+      this.navcolor = this.scrollPosition > 80 ? true : false;
+      this.$emit("sendToMall", this.navcolor);
     }
   }
 };
@@ -675,18 +817,13 @@ export default {
 </style>
 
 <style scoped>
-/* mainLoading */
 .mainLoading {
   min-height: 100vh;
 }
-
 .mainLoading h2 {
   text-align: center;
   line-height: 100vh;
 }
-
-/* carousel */
-
 .carousel {
   height: 530px;
   position: relative;
@@ -694,7 +831,6 @@ export default {
   margin: 0 0 20px 0;
   background-color: black;
 }
-
 .linkToIndex {
   position: absolute;
   bottom: 10px;
@@ -705,24 +841,20 @@ export default {
   align-items: center;
   z-index: 100;
 }
-
 .linkToIndex li {
   flex: 1;
   width: 25%;
   text-align: center;
   cursor: pointer;
 }
-
 .littleImg {
   width: 180px;
   height: 60px;
 }
-
 .rollImgCon {
   width: 100%;
   height: 450px;
 }
-
 .rollImg {
   display: block;
   position: absolute;
@@ -730,7 +862,6 @@ export default {
   transform: translateX(-50%);
   height: 450px;
 }
-
 .toleft,
 .toright {
   position: absolute;
@@ -744,11 +875,9 @@ export default {
 .toright:hover {
   background-color: rgba(56, 68, 82, 0.1);
 }
-
 .toleft {
   left: 0;
 }
-
 .toleft::after {
   content: "";
   width: 50px;
@@ -774,93 +903,135 @@ export default {
   background-image: url(../assets/right.png);
   background-size: 50px auto;
 }
-
-/* allTag */
-
+.lastMovie,
+.newMovie,
+.weeklyMovie {
+}
+.rentMovie {
+  height: 80px;
+  color: #ffffff;
+}
+.rentMovieTitle {
+  line-height: 80px;
+}
+.generalMovieTitle {
+  height: 40px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+.generalMovieTitle > span {
+  height: 30px;
+  margin-right: 20px;
+  font-size: 18px;
+  background-color: #25252b;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.movieUl {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+  color: #ffffff;
+  height: 340px;
+  margin-bottom: 10px;
+}
+.movieUl > li {
+  flex: 0 0 auto;
+  margin-right: 10px;
+}
+.generalMovieIMgCon {
+  width: 180px;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+}
+.generalMovieIMgCon > .generalMovieIMg {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+.rentText {
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  color: #ffffff;
+  border-radius: 18px;
+  text-indent: 1rem;
+  margin-left: 20px;
+}
 .allTag {
   padding: 0;
   padding-right: 20px;
 }
-
 .movieG {
   width: 250px;
 }
-
 .movieG2 {
   position: fixed !important;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
   top: 70px;
 }
-
 .movieG h3 {
   margin: 0;
   background-color: #1b1e21;
   color: #ffffff;
   padding: 20px 0;
 }
-
-/* mainLoading */
 .mainLoading {
   min-height: 100vh;
 }
-
 .mainLoading h2 {
   text-align: center;
   line-height: 100vh;
 }
-
-/* allMovie */
-
-.allMovie {
-  background-color: #2c2c2c;
-}
-/* searchBar */
-
 .searchBar {
-  height: 55px;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-end;
-  align-items: center;
-  border-bottom: 1px grey solid;
-  padding-bottom: 5px;
+  width: 33.33333vw;
+  height: 40px;
+  position: fixed;
+  left: 50%;
+  top: 5px;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background-color: hsla(0, 0%, 100%, 0.1);
+  border-radius: 28px;
 }
-
-.searchBar > div {
-  font-size: 25px;
-  color: lightcyan;
-  margin-right: 20px;
-  font-weight: 600;
-}
-
 .searchBar > input {
+  z-index: 9999;
+  width: 80%;
   height: 40px;
   line-height: 40px;
-  width: 35%;
   border-radius: 8px 0 0 8px;
-  position: relative;
   border: 0;
-  margin-right: 25px;
-  font-size: 18px;
+  font-size: 16px;
   text-indent: 1rem;
   outline: none;
   padding: 0;
+  background: rgba(255, 25, 255, 0);
+  color: hsla(0, 0%, 100%, 0.87);
 }
-
+.searchBar > input::-webkit-input-placeholder {
+  color: hsla(0, 0%, 100%, 0.87);
+}
+.searchBar > input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: hsla(0, 0%, 100%, 0.87);
+}
+.searchBar > input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: hsla(0, 0%, 100%, 0.87);
+}
+.searchBar > input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: hsla(0, 0%, 100%, 0.87);
+}
 .searchBar > button {
-  height: 40px;
-  width: 40px;
-  border-radius: 0 8px 8px 0;
-  border: 0;
-  padding: 0;
-  background-color: #1b1e21;
-  position: absolute;
-  color: red;
-  font-size: 1.5rem;
+  border-top: 1px solid;
 }
-/* mainMovie */
-
 .mainMovie ul li {
   padding: 15px;
 }
@@ -872,7 +1043,6 @@ export default {
   background-color: #343a40 !important;
   color: #ffffff;
 }
-
 .sigleMovie > div:nth-child(1) {
   overflow: hidden;
   height: 400px;
@@ -889,7 +1059,6 @@ export default {
   background-color: red;
   text-align: center;
 }
-
 .movieCategory::after {
   content: "";
   border-left: 5px solid transparent;
@@ -900,7 +1069,6 @@ export default {
   left: 0;
   bottom: -10px;
 }
-
 .movieImg {
   display: block;
   width: 276px;
@@ -911,7 +1079,6 @@ export default {
   left: -3px;
   cursor: pointer;
 }
-
 .movieName {
   display: flex;
   flex-flow: row nowrap;
@@ -942,7 +1109,6 @@ export default {
   align-items: center;
   font-size: 15px;
 }
-
 .movieDetail div {
   padding: 10px 0;
   flex: 1;
@@ -967,7 +1133,6 @@ export default {
   }
   .allMovie {
     width: 66.66666667%;
-    background-color: #2c2c2c;
   }
   .mainMovie > ul > li {
     width: 25%;

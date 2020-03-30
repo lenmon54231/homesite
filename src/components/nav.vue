@@ -58,16 +58,15 @@ export default {
   height: 50px;
   line-height: 50px;
   text-align: center;
-  color: whitesmoke;
   flex: 1;
   font-size: 1.25rem;
   margin-right: 10px;
+  color: #fff;
 }
 
 .navbarLeft > a:hover,
 .navbarRight > a:hover {
-  background-color: #fff;
-  color: black;
+  color: #fff;
 }
 
 .navbar {

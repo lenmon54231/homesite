@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6 col-md-offset-3 copyRight">CopyRight By Lee</div>
+        <div class="col-md-6 col-md-offset-3 copyRight">Copyright © 2012-2020 Lee All Rights Reserved. | Powered by Vue & Mifa Design</div>
       </div>
     </div>
   </div>

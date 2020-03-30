@@ -33,7 +33,7 @@
       <div class="register">
         <div>
           返回:
-          <router-link tag="a" to="/home" class="registerLink">主页</router-link>
+          <router-link tag="a" to="/mall" class="registerLink">主页</router-link>
         </div>
         <div v-if="showRegLogin">
           已有账号？
