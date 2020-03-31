@@ -1,6 +1,6 @@
 <template>
   <div class="mainbody">
-    <Nav :class="{navcolor}"></Nav>
+    <Nav :class="{navcolor:navcolor}"></Nav>
     <main>
       <keep-alive exclude="detailPage">
         <router-view @sendToMall="getNavColor"></router-view>
@@ -62,13 +62,10 @@ main {
 }
 
 /* Nav */
-.mainbody /deep/ .nav {
-  background-color: transparent !important;
-}
 .navcolor {
-  background-color: #1b1e21;
+  background-color: #1b1e21 !important;
 }
-.footer{
+.footer {
   background-color: #1b1e21;
 }
 </style>

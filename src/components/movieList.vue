@@ -465,7 +465,6 @@ function goUp(locationNow) {
 }
 // 鼠标滚动逻辑（全屏滚动关键逻辑）
 function scrollMouse(event) {
-  console.log("滚轮事件监控开始");
   event.preventDefault();
   let delta = getWheelDelta(event);
   let locationNow = document.documentElement.scrollTop;
@@ -635,6 +634,8 @@ export default {
     });
   },
   activated() {
+    document.getElementsByClassName("nav")[0].style.backgroundColor =
+      "transparent";
     document.getElementById("appLoading").style.display = "none";
     // 默认跳转到之前浏览的位置
     this.scrollPosition = this.$store.state.scrollPosition;
@@ -879,7 +880,6 @@ export default {
       let h = h1 + h2 + h3 + h4 + h5;
       this.toTopHight = h;
       this.scrollPosition = document.documentElement.scrollTop;
-      // console.log(this.scrollPosition)
       var offtop = h - 50;
       if (document.body.clientWidth > 972) {
         if (this.scrollPosition > offtop) {
@@ -1097,10 +1097,10 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-.playText{
+.playText {
   color: #ffffff;
 }
-.playTextTitle{
+.playTextTitle {
   font-size: 22px;
   font-weight: 550;
 }
@@ -1214,10 +1214,10 @@ export default {
   flex: 0 0 auto;
   margin-right: 10px;
 }
-.newMovieLi{
+.newMovieLi {
   position: relative;
 }
-.herald{
+.herald {
   position: absolute;
   top: 0;
   right: 10px;
