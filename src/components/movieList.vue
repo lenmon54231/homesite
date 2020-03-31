@@ -177,6 +177,53 @@
       </div>
     </div>
     <div class="row carousel" ref="carousel">
+      <div class="playCon">
+        <div class="play">
+          <svg
+            t="1585639082036"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="4887"
+            width="40"
+            height="40"
+          >
+            <path
+              d="M512-221.85507629c404.2161863 0 732.84748726 328.8202239 732.84748726 732.86323167 0 404.01151893-328.63130096 732.83174285-732.84748726 732.83174287S-220.84748726 915.20859726-220.84748726 510.99241097 107.7838137-221.85507629 512.01574276-221.85507629z m0-115.73098924C43.39260865-337.58606553-336.57847814 42.38501963-336.57847814 510.99241097c0 468.60739135 379.97108682 848.57847814 848.57847814 848.57847817 468.60739135 0 848.57847814-379.97108682 848.57847814-848.57847817 0-468.60739135-379.97108682-848.57847814-848.57847814-848.5784765z"
+              p-id="4888"
+              fill="#bfbfbf"
+            />
+            <path
+              d="M347.77881018 905.35312203c-55.1182414 0-94.90224549-44.31815311-94.90224553-105.49766981V222.1293697c0-61.17951666 39.97292705-105.49766979 94.90224553-105.49766812 19.52202754 0 39.3904155 5.66768498 58.72352003 16.84562084l500.425148 288.86304126c35.98980416 20.65556522 56.45644642 53.0558351 56.45644641 88.65204729 0 35.61195826-20.65556522 68.01222649-56.45644641 88.63630452L406.51807463 888.50750119c-19.3331046 11.17793586-39.02831234 16.86136526-58.72352007 16.86136356z"
+              p-id="4889"
+              fill="#bfbfbf"
+            />
+          </svg>
+        </div>
+        <div class="collect">
+          <svg
+            t="1585639606350"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="8413"
+            width="40"
+            height="40"
+          >
+            <path
+              d="M335.008 916.629333c-35.914667 22.314667-82.88 10.773333-104.693333-25.557333a77.333333 77.333333 0 0 1-8.96-57.429333l46.485333-198.24a13.141333 13.141333 0 0 0-4.021333-12.864l-152.16-132.586667c-31.605333-27.52-35.253333-75.648-8.234667-107.733333a75.68 75.68 0 0 1 51.733333-26.752L354.848 339.2c4.352-0.362667 8.245333-3.232 10.026667-7.594667l76.938666-188.170666c16.032-39.2 60.618667-57.92 99.52-41.461334a76.309333 76.309333 0 0 1 40.832 41.461334l76.938667 188.16c1.781333 4.373333 5.674667 7.253333 10.026667 7.605333l199.712 16.277333c41.877333 3.413333 72.885333 40.458667 69.568 82.517334a76.938667 76.938667 0 0 1-26.08 51.978666l-152.16 132.586667c-3.541333 3.082667-5.141333 8.074667-4.021334 12.853333l46.485334 198.24c9.621333 41.013333-15.36 82.336-56.138667 92.224a75.285333 75.285333 0 0 1-57.525333-9.237333l-170.976-106.24a11.296 11.296 0 0 0-12.010667 0l-170.986667 106.24zM551.786667 756.032l170.976 106.24c2.624 1.621333 5.717333 2.122667 8.650666 1.408 6.410667-1.557333 10.56-8.426667 8.928-15.424l-46.485333-198.24a77.141333 77.141333 0 0 1 24.277333-75.733333L870.293333 441.706667c2.485333-2.165333 4.053333-5.312 4.330667-8.746667 0.565333-7.136-4.490667-13.173333-10.976-13.696l-199.712-16.288a75.989333 75.989333 0 0 1-64.064-47.168l-76.938667-188.16a12.309333 12.309333 0 0 0-6.538666-6.741333c-5.898667-2.496-12.725333 0.373333-15.328 6.741333l-76.949334 188.16a75.989333 75.989333 0 0 1-64.064 47.168l-199.701333 16.288a11.68 11.68 0 0 0-7.978667 4.181333 13.226667 13.226667 0 0 0 1.333334 18.261334l152.16 132.586666a77.141333 77.141333 0 0 1 24.277333 75.733334l-46.485333 198.229333a13.333333 13.333333 0 0 0 1.514666 9.877333c3.488 5.792 10.581333 7.530667 16.064 4.128l170.986667-106.229333a75.296 75.296 0 0 1 79.562667 0z"
+              p-id="8414"
+              fill="#bfbfbf"
+            />
+          </svg>
+        </div>
+        <div class="playText">
+          <div class="playTextTitle">{{imgList[currentIndex].title}}</div>
+          <div class="playTextIntrduce">{{imgList[currentIndex].introduce}}</div>
+        </div>
+      </div>
       <ul class="linkToIndex">
         <li
           v-for="(item, index) in imgList"
@@ -232,7 +279,8 @@
           </div>
           <div>
             <ul class="movieUl">
-              <li v-for="(item,index) in newMovie">
+              <li class="newMovieLi" v-for="(item,index) in newMovie">
+                <div class="herald">预告</div>
                 <div @click="handToDetail(item.id)" class="generalMovieIMgCon">
                   <img class="generalMovieIMg" :src="item.images.medium" alt="剧照" />
                 </div>
@@ -276,9 +324,6 @@
               <h3>TOP90分类</h3>
               <ul ref="movieGul">
                 <div v-if="genresLoading">
-                  <!-- <li @click="toAll">
-                    <span>全部</span>
-                  </li>-->
                   <li>
                     <span>犯罪</span>
                   </li>
@@ -325,7 +370,11 @@
             </div>
             <div class="mainMovie" v-else>
               <ul class="row sigleMovieList">
-                <li v-for="(item, index) in items" :key="index" class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <li
+                  v-for="(item, index) in items"
+                  :key="index"
+                  class="col-lg-3 col-md-4 col-sm-4 col-xs-6"
+                >
                   <div class="sigleMovie">
                     <div>
                       <img class="movieImg" :src="item.images.small" @click="handToDetail(item.id)" />
@@ -446,22 +495,30 @@ export default {
         {
           url:
             "https://limengtupian.oss-cn-beijing.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/1.jpg",
-          bc: "rgb(0, 0, 0)"
+          bc: "rgb(0, 0, 0)",
+          title: "天火",
+          introduce: "西蒙·韦斯特执导动作灾难片"
         },
         {
           url:
             "https://limengtupian.oss-cn-beijing.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/2.jpg",
-          bc: "rgb(5, 3, 5)"
+          bc: "rgb(5, 3, 5)",
+          title: "星际探索",
+          introduce: "布拉德·皮特、汤米·李·琼斯联袂主演"
         },
         {
           url:
             "https://limengtupian.oss-cn-beijing.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/3.jpg",
-          bc: "rgb(17, 9, 1)"
+          bc: "rgb(17, 9, 1)",
+          title: "三生三世十里桃花",
+          introduce: "该剧根据唐七公子同名小说改编"
         },
         {
           url:
             "https://limengtupian.oss-cn-beijing.aliyuncs.com/%E8%BD%AE%E6%92%AD%E5%9B%BE/4.jpg",
-          bc: "rgb(0, 0, 0)"
+          bc: "rgb(0, 0, 0)",
+          title: "催眠-裁决",
+          introduce: "张家辉、张翰领衔主演犯罪动作电影"
         }
       ],
       //轮播图
@@ -1006,6 +1063,47 @@ export default {
   margin: 0 0 20px 0;
   background-color: black;
 }
+.playCon {
+  position: absolute;
+  left: 150px;
+  bottom: 100px;
+  /* width: 10vw; */
+  height: 5vw;
+  z-index: 9999;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.play,
+.collect {
+  flex: 0 0 auto;
+  width: 50px;
+  height: 50px;
+  background: rgba(190, 187, 187, 0.4);
+  border-radius: 50px;
+  margin: 0 10px;
+  position: relative;
+  cursor: pointer;
+}
+.play:hover,
+.collect:hover {
+  background: rgba(190, 187, 187, 0.6);
+}
+.play > svg,
+.collect > svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.playText{
+  color: #ffffff;
+}
+.playTextTitle{
+  font-size: 22px;
+  font-weight: 550;
+}
 .linkToIndex {
   position: absolute;
   bottom: 10px;
@@ -1116,6 +1214,20 @@ export default {
   flex: 0 0 auto;
   margin-right: 10px;
 }
+.newMovieLi{
+  position: relative;
+}
+.herald{
+  position: absolute;
+  top: 0;
+  right: 10px;
+  width: 36px;
+  height: 20px;
+  line-height: 20px;
+  background-color: #0d9bff;
+  z-index: 9999;
+  text-align: center;
+}
 .generalMovieIMgCon {
   width: 180px;
   height: 300px;
@@ -1128,6 +1240,13 @@ export default {
   top: 0;
   left: 0;
   cursor: pointer;
+}
+.generalMovieIMgCon > .generalMovieIMg:hover {
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.03);
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 .rentText {
   height: 40px;
