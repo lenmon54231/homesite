@@ -42,7 +42,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 html,
 body {
@@ -63,10 +62,8 @@ main {
 }
 
 /* Nav */
-.nav {
-  left: 0 !important;
-  width: 100%;
-  background-color: transparent;
+.mainbody /deep/ .nav {
+  background-color: transparent !important;
 }
 .navcolor {
   background-color: #1b1e21;
